@@ -24,26 +24,38 @@ const Dropdown = ({ item, isOpen, onToggle }: DropdownProps) => {
       </button>
       
       {isOpen && (
-        <div className="absolute top-full left-0 mt-2 w-64 bg-card border border-border rounded-lg shadow-elegant z-50 animate-fade-in">
-          <div className="p-2">
-            {item.submenu.map((subitem, index) => (
-              <a
-                key={index}
-                href={subitem.href}
-                className="block p-3 rounded-md hover:bg-accent/20 transition-colors group"
-              >
-                <div className="font-medium text-foreground group-hover:text-primary">
-                  {subitem.label}
-                </div>
-                {subitem.description && (
-                  <div className="text-sm text-muted-foreground mt-1">
-                    {subitem.description}
+        <>
+          {/* Backdrop */}
+          <div 
+            className="fixed inset-0 z-40" 
+            onClick={(e) => {
+              e.stopPropagation();
+              onToggle();
+            }}
+          />
+          {/* Dropdown Menu */}
+          <div className="absolute top-full left-0 mt-2 w-72 bg-background border border-border rounded-lg shadow-elegant z-50 animate-fade-in">
+            <div className="p-2">
+              {item.submenu.map((subitem, index) => (
+                <a
+                  key={index}
+                  href={subitem.href}
+                  className="block p-3 rounded-md hover:bg-accent/10 transition-colors group"
+                  onClick={() => onToggle()}
+                >
+                  <div className="font-medium text-foreground group-hover:text-primary">
+                    {subitem.label}
                   </div>
-                )}
-              </a>
-            ))}
+                  {subitem.description && (
+                    <div className="text-sm text-muted-foreground mt-1">
+                      {subitem.description}
+                    </div>
+                  )}
+                </a>
+              ))}
+            </div>
           </div>
-        </div>
+        </>
       )}
     </div>
   );
@@ -64,6 +76,11 @@ export const Header = () => {
 
   const closeAllDropdowns = () => {
     setActiveDropdown(null);
+  };
+
+  const handleLinkClick = () => {
+    closeAllDropdowns();
+    setMobileMenuOpen(false);
   };
 
   return (
@@ -91,7 +108,7 @@ export const Header = () => {
                 />
               ) : (
                 <Button variant="nav" asChild>
-                  <a href={item.href}>{item.label}</a>
+                  <a href={item.href} onClick={handleLinkClick}>{item.label}</a>
                 </Button>
               )}
             </div>
@@ -101,10 +118,10 @@ export const Header = () => {
         {/* Desktop CTA Buttons */}
         <div className="hidden lg:flex items-center space-x-4">
           <Button variant="nav" asChild>
-            <a href="#pricing">Pricing</a>
+            <a href="/pricing" onClick={handleLinkClick}>Pricing</a>
           </Button>
           <Button variant="demo" asChild>
-            <a href="#demo">Schedule a Demo</a>
+            <a href="/demo" onClick={handleLinkClick}>Schedule a Demo</a>
           </Button>
         </div>
 
@@ -130,7 +147,7 @@ export const Header = () => {
                 <a
                   href={item.href}
                   className="block py-2 text-foreground hover:text-primary transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={handleLinkClick}
                 >
                   {item.label}
                 </a>
@@ -138,23 +155,16 @@ export const Header = () => {
             ))}
             <div className="pt-4 space-y-2">
               <Button variant="outline" className="w-full" asChild>
-                <a href="#pricing">Pricing</a>
+                <a href="/pricing" onClick={handleLinkClick}>Pricing</a>
               </Button>
               <Button variant="demo" className="w-full" asChild>
-                <a href="#demo">Schedule a Demo</a>
+                <a href="/demo" onClick={handleLinkClick}>Schedule a Demo</a>
               </Button>
             </div>
           </div>
         </div>
       )}
 
-      {/* Backdrop for dropdown close */}
-      {activeDropdown && (
-        <div
-          className="fixed inset-0 z-30"
-          onClick={closeAllDropdowns}
-        />
-      )}
     </header>
   );
 };

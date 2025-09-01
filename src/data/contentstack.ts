@@ -90,12 +90,12 @@ export const contentstackData = {
       created_at: "2024-01-15T10:00:00Z",
       updated_at: "2024-01-15T10:00:00Z",
       label: "Products",
-      href: "#products",
+      href: "/products",
       submenu: [
-        { label: "Core HR", href: "#core-hr", description: "Complete HR management solution" },
-        { label: "Talent Acquisition", href: "#talent", description: "Smart recruiting platform" },
-        { label: "Performance Management", href: "#performance", description: "Employee performance tracking" },
-        { label: "Analytics", href: "#analytics", description: "HR insights and reporting" }
+        { label: "Core HR", href: "/products#core-hr", description: "Complete HR management solution" },
+        { label: "Talent Acquisition", href: "/products#talent", description: "Smart recruiting platform" },
+        { label: "Performance Management", href: "/products#performance", description: "Employee performance tracking" },
+        { label: "Analytics", href: "/products#analytics", description: "HR insights and reporting" }
       ]
     },
     {
@@ -106,12 +106,12 @@ export const contentstackData = {
       created_at: "2024-01-15T10:00:00Z",
       updated_at: "2024-01-15T10:00:00Z",
       label: "Industries & Solutions",
-      href: "#industries",
+      href: "/industries",
       submenu: [
-        { label: "Technology", href: "#tech", description: "Solutions for tech companies" },
-        { label: "Manufacturing", href: "#manufacturing", description: "Industrial workforce management" },
-        { label: "Retail", href: "#retail", description: "Retail employee solutions" },
-        { label: "Healthcare", href: "#healthcare", description: "Healthcare workforce tools" }
+        { label: "Technology", href: "/industries#tech", description: "Solutions for tech companies" },
+        { label: "Manufacturing", href: "/industries#manufacturing", description: "Industrial workforce management" },
+        { label: "Retail", href: "/industries#retail", description: "Retail employee solutions" },
+        { label: "Healthcare", href: "/industries#healthcare", description: "Healthcare workforce tools" }
       ]
     },
     {
