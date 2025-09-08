@@ -2,19 +2,56 @@ import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
 import { fetchContentstackData } from "@/data/contentstack";
 import heroDashboard from "@/assets/hero-dashboard.jpg";
+import { usePersonalization } from "@/hooks/usePersonalization";
+import { normalizeAssetUrl } from "@/lib/utils";
 
 export const HeroSection = () => {
-  const { data: hero } = useQuery({
-    queryKey: ['hero_section'],
-    queryFn: () => fetchContentstackData('hero_section'),
+  const { industryType, role } = usePersonalization();
+  const { data: hero, isLoading: heroLoading, error: heroError } = useQuery({
+    queryKey: ['hero_section', industryType, role],
+    queryFn: () => fetchContentstackData('hero_section', { industryType, role }),
   });
 
-  const { data: trustIndicators } = useQuery({
+  const { data: trustIndicators, isLoading: trustLoading } = useQuery({
     queryKey: ['trust_indicators'],
     queryFn: () => fetchContentstackData('trust_indicators'),
   });
 
-  if (!hero) return null;
+  const { data: caseStudies } = useQuery({
+    queryKey: ['case_studies', industryType, role],
+    queryFn: () => fetchContentstackData('case_studies', { industryType, role }),
+  });
+
+  const isPersonalized = Boolean(industryType || role);
+  const clearPersonalization = () => {
+    const url = new URL(window.location.href);
+    url.searchParams.delete('industrytype');
+    url.searchParams.delete('role');
+    window.location.href = url.toString();
+  };
+
+  if (heroLoading) {
+    return (
+      <section className="relative min-h-screen bg-gradient-hero overflow-hidden">
+        <div className="container relative z-10 flex items-center min-h-screen py-20">
+          <div className="grid lg:grid-cols-2 gap-12 items-center w-full">
+            <div className="space-y-6">
+              <div className="h-10 w-2/3 bg-white/20 rounded animate-pulse" />
+              <div className="h-6 w-1/2 bg-white/10 rounded animate-pulse" />
+              <div className="h-20 w-3/4 bg-white/10 rounded animate-pulse" />
+              <div className="flex gap-3">
+                <div className="h-10 w-32 bg-white/10 rounded animate-pulse" />
+                <div className="h-10 w-32 bg-white/10 rounded animate-pulse" />
+              </div>
+            </div>
+            <div className="h-64 bg-white/10 rounded-2xl shadow animate-pulse" />
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (heroError || !hero) return null;
 
   return (
     <section className="relative min-h-screen bg-gradient-hero overflow-hidden">
@@ -68,15 +105,26 @@ export const HeroSection = () => {
                 </div>
               </div>
             )}
+            {trustLoading && (
+              <div className="pt-8 border-t border-white/20">
+                <div className="flex items-center space-x-6">
+                  <span className="text-white/70 text-sm font-medium">Trusted by:</span>
+                  <div className="h-8 w-24 bg-white/10 rounded animate-pulse" />
+                  <div className="h-8 w-24 bg-white/10 rounded animate-pulse" />
+                  <div className="h-8 w-24 bg-white/10 rounded animate-pulse" />
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Right Dashboard Mockup */}
           <div className="relative animate-float">
             <div className="relative z-10">
               <img
-                src={heroDashboard}
-                alt="Darwinbox HR Dashboard Interface"
+                src={normalizeAssetUrl(hero?.background_image?.url) || heroDashboard}
+                alt={hero?.background_image?.alt || "TalentConnect360 HR Dashboard Interface"}
                 className="w-full h-auto rounded-2xl shadow-elegant"
+                onError={(e) => { (e.currentTarget as HTMLImageElement).src = heroDashboard; }}
               />
             </div>
             
@@ -86,6 +134,32 @@ export const HeroSection = () => {
           </div>
         </div>
       </div>
+
+      {/* Case Studies */}
+      {caseStudies && caseStudies.length > 0 && (
+        <div className="container relative z-10 pb-16">
+          <div className="bg-background/80 backdrop-blur rounded-xl border border-border p-6">
+            <div className="mb-4">
+              <h3 className="text-xl font-semibold text-foreground">Recommended Case Studies</h3>
+            </div>
+            <div className="grid md:grid-cols-2 gap-6">
+              {caseStudies.map((cs: any, idx: number) => (
+                <a key={cs.uid} href={cs.link} className="group p-5 rounded-xl border border-border bg-gradient-to-br from-accent/5 to-transparent hover:from-primary/10 hover:to-accent/10 transition-colors">
+                  <div className="flex items-center gap-4 mb-3">
+                    <div className="h-10 w-10 rounded bg-gradient-hero flex items-center justify-center shadow">
+                      <img src={cs.logo_url} alt={cs.company_name} className="h-6" />
+                    </div>
+                  </div>
+                  <div className="font-medium text-foreground mb-1 group-hover:text-primary">
+                    {cs.title}
+                  </div>
+                  <div className="text-sm text-muted-foreground">{cs.summary}</div>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Bottom Gradient Fade */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent"></div>

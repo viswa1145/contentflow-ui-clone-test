@@ -12,13 +12,29 @@ const NotFound = () => {
   }, [location.pathname]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">404</h1>
-        <p className="text-xl text-gray-600 mb-4">Oops! Page not found</p>
-        <a href="/" className="text-blue-500 hover:text-blue-700 underline">
-          Return to Home
-        </a>
+    <div className="min-h-screen flex items-center justify-center bg-background">
+      <div className="text-center space-y-4">
+        <h1 className="text-5xl font-bold">404</h1>
+        <p className="text-lg text-muted-foreground">Oops! Page not found</p>
+        <div className="flex gap-2 justify-center">
+          <a href="/" className="px-4 py-2 rounded-md border border-border hover:bg-accent/10">Return Home</a>
+          <button
+            onClick={() => {
+              const ev = new CustomEvent('tc360:command', { detail: { open: true } });
+              window.dispatchEvent(ev);
+            }}
+            className="px-4 py-2 rounded-md border border-border hover:bg-accent/10"
+          >
+            Search
+          </button>
+        </div>
+        <div className="text-sm text-muted-foreground">Quick links:</div>
+        <div className="flex flex-wrap gap-2 justify-center text-sm">
+          <a href="/products" className="px-3 py-1 rounded-md border border-border hover:bg-accent/10">Products</a>
+          <a href="/industries" className="px-3 py-1 rounded-md border border-border hover:bg-accent/10">Industries</a>
+          <a href="/pricing" className="px-3 py-1 rounded-md border border-border hover:bg-accent/10">Pricing</a>
+          <a href="/demo" className="px-3 py-1 rounded-md border border-border hover:bg-accent/10">Schedule Demo</a>
+        </div>
       </div>
     </div>
   );

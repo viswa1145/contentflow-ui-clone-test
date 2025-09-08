@@ -2,13 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
+/* TalentConnect360-inspired color palette */
+
+/* Animated gradient utilities */
+@keyframes tc360-gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.tc360-gradient-animated {
+  background-image: linear-gradient(90deg, rgba(56,189,248,0.35), rgba(244,114,182,0.35), rgba(56,189,248,0.35));
+  background-size: 200% 200%;
+  animation: tc360-gradient-shift 4s ease infinite;
+}
+
+.tc360-gradient-ring {
+  box-shadow: 0 0 0 2px rgba(56,189,248,0.35), 0 0 0 6px rgba(244,114,182,0.20);
+}
+
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
 All colors MUST be HSL.
 */
 
 @layer base {
   :root {
-    /* Darwinbox-inspired color palette */
+    /* TalentConnect360-inspired color palette */
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
 
@@ -71,22 +90,26 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 211 100% 15%; /* Dark navy background */
+    /* Darker page background */
+    --background: 220 15% 8%;
     --foreground: 0 0% 100%;
 
-    --card: 211 69% 20%;
+    /* Lighter card surfaces to separate from background */
+    --card: 220 16% 16%;
     --card-foreground: 0 0% 100%;
 
-    --popover: 211 69% 20%;
+    --popover: 220 16% 16%;
     --popover-foreground: 0 0% 100%;
 
-    --primary: 0 0% 100%; /* White primary in dark mode */
-    --primary-foreground: 211 100% 21%;
+    /* Keep primary as dark navy hues in dark mode for readable gradients */
+    --primary: 211 100% 21%;
+    --primary-light: 211 69% 41%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 211 50% 25%;
+    --secondary: 220 15% 20%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 211 50% 25%;
+    --muted: 220 15% 18%;
     --muted-foreground: 210 15% 75%;
 
     --accent: 45 95% 58%; /* Keep bright yellow */
@@ -95,8 +118,9 @@ All colors MUST be HSL.
     --destructive: 0 62.8% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 211 50% 25%;
-    --input: 211 50% 25%;
+    /* Lighter borders/inputs for column delineation */
+    --border: 220 10% 28%;
+    --input: 220 10% 28%;
     --ring: 45 95% 58%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
@@ -106,7 +130,93 @@ All colors MUST be HSL.
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Dark-specific gradients for better contrast */
+    --gradient-hero: linear-gradient(135deg, hsl(220 20% 12%) 0%, hsl(211 69% 35%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(220 16% 14%) 0%, hsl(220 16% 20%) 100%);
   }
+
+  /* Seasonal themes - override select tokens to add festive accents */
+  .theme-diwali {
+    --primary: 45 95% 51%; /* warm gold */
+    --ring: 28 100% 60%; /* festive orange */
+    --gradient-card: linear-gradient(135deg, hsl(28 92% 38%) 0%, hsl(45 95% 51%) 100%);
+  }
+
+  .dark.theme-diwali {
+    --primary: 45 95% 64%;
+    --ring: 28 100% 65%;
+    --card: 35 25% 14%;
+    --popover: 35 25% 14%;
+  }
+
+  .theme-holi {
+    --primary: 320 85% 55%; /* magenta */
+    --accent: 195 85% 52%; /* cyan */
+    --ring: 270 95% 60%; /* violet */
+    --gradient-card: linear-gradient(135deg, hsl(320 85% 55%) 0%, hsl(195 85% 52%) 50%, hsl(270 95% 60%) 100%);
+  }
+
+  .dark.theme-holi {
+    --card: 260 28% 16%;
+    --popover: 260 28% 16%;
+  }
+
+  .theme-christmas {
+    --primary: 142 71% 35%; /* green */
+    --accent: 0 85% 58%; /* red */
+    --ring: 142 71% 35%;
+    --gradient-card: linear-gradient(135deg, hsl(142 71% 32%) 0%, hsl(0 85% 46%) 100%);
+  }
+
+  .dark.theme-christmas {
+    --card: 150 20% 14%;
+    --popover: 150 20% 14%;
+  }
+}
+
+@layer components {
+  /* Festival Effects */
+  .fe-diya {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    opacity: 0.22;
+    filter: drop-shadow(0 0 12px rgba(255, 170, 60, 0.35));
+    animation: tc360-diya-flicker 2.2s infinite ease-in-out;
+    background: radial-gradient(circle at 50% 35%, rgba(255,220,120,0.9) 0%, rgba(255,160,40,0.7) 25%, rgba(140,60,0,0.0) 55%),
+                radial-gradient(closest-side, rgba(255, 200, 120, 0.7), rgba(255, 160, 40, 0.0));
+    pointer-events: none;
+  }
+  .fe-diya--bl { left: 18px; bottom: 18px; }
+  .fe-diya--br { right: 18px; bottom: 18px; }
+
+  .fe-confetti { position: absolute; inset: 0; overflow: hidden; }
+  .fe-confetti-piece {
+    position: absolute;
+    top: -5vh;
+    width: 10px; height: 14px;
+    opacity: 0.18;
+    border-radius: 2px;
+    animation: tc360-confetti-fall 9s linear infinite;
+  }
+  .fe-confetti-1 { left: 5%; background: hsl(195 85% 52%); animation-delay: 0s; }
+  .fe-confetti-2 { left: 18%; background: hsl(320 85% 55%); animation-delay: 1s; }
+  .fe-confetti-3 { left: 28%; background: hsl(270 95% 60%); animation-delay: 2s; }
+  .fe-confetti-4 { left: 40%; background: hsl(155 70% 45%); animation-delay: 3s; }
+  .fe-confetti-5 { left: 58%; background: hsl(45 95% 51%); animation-delay: 4s; }
+  .fe-confetti-6 { left: 72%; background: hsl(0 85% 58%); animation-delay: 5s; }
+  .fe-confetti-7 { left: 88%; background: hsl(210 90% 55%); animation-delay: 6s; }
+}
+
+@keyframes tc360-diya-flicker {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0.20; }
+  50% { transform: translateY(-1px) scale(1.03); opacity: 0.28; }
+}
+
+@keyframes tc360-confetti-fall {
+  0% { transform: translateY(-10vh) rotate(0deg); }
+  100% { transform: translateY(110vh) rotate(360deg); }
 }
 
 @layer base {

@@ -2,14 +2,28 @@ import { X } from "lucide-react";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchContentstackData } from "@/data/contentstack";
+import { usePersonalization } from "@/hooks/usePersonalization";
 
 export const AnnouncementBanner = () => {
   const [isVisible, setIsVisible] = useState(true);
+  const { industryType, role } = usePersonalization();
 
-  const { data: announcement } = useQuery({
-    queryKey: ['announcement_banner'],
-    queryFn: () => fetchContentstackData('announcement_banner'),
+  const { data: announcement, isLoading, error } = useQuery({
+    queryKey: ['announcement_banner', industryType, role],
+    queryFn: () => fetchContentstackData('announcement_banner', { industryType, role }),
   });
+
+  if (isLoading && isVisible) {
+    return (
+      <div className="relative border-b border-accent/30">
+        <div className="container py-3">
+          <div className="h-4 w-52 rounded bg-accent/20 animate-pulse" />
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !announcement) return null;
 
   if (!isVisible || !announcement) return null;
 
