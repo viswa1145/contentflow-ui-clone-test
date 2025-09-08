@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import ThemeToggle from "@/components/ThemeToggle";
 import { usePersonalization } from "@/hooks/usePersonalization";
 import { useLocation, useNavigate } from "react-router-dom";
+import appLogo from "@/assets/logo.png";
 
 interface DropdownProps {
   item: NavigationItem;
@@ -156,9 +157,7 @@ export const Header = () => {
         <div className="flex items-center space-x-2">
           <div className="flex items-center space-x-2">
             <a href={hrefWithSearch('/')} onClick={handleLinkClick} className="flex items-center space-x-2">
-              <div className="h-8 w-8 rounded bg-gradient-hero flex items-center justify-center">
-                <span className="text-white font-bold text-sm">T</span>
-              </div>
+              <img src={appLogo} alt="TalentConnect360 logo" className="h-8 w-8 rounded object-cover" />
               <span className="font-bold text-xl text-foreground">TalentConnect360</span>
             </a>
           </div>
