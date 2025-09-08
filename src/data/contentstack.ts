@@ -181,7 +181,15 @@ export const fetchContentstackData = async (contentType: string, filters?: { ind
       const base = Stack.ContentType('case_study');
       const makeMap = (entries: any[]) => (Array.isArray(entries) ? entries : [entries]).map((e: any) => {
         const slug = e.slug || e.uid;
-        return { ...e, link: e.link || (slug ? `/case-studies/${slug}` : undefined) };
+        const logo = typeof e.logo_url === 'string' ? e.logo_url : (e.logo_url?.url || e.logo_url?.image_url);
+        const hero = typeof e.hero_image_url === 'string' ? e.hero_image_url : (e.hero_image_url?.url || e.hero_image_url?.image_url);
+        return {
+          ...e,
+          company_name: e.company_name || e.title,
+          logo_url: logo,
+          hero_image_url: hero,
+          link: e.link || (slug ? `/case-studies/${slug}` : undefined),
+        };
       });
       if (filters?.industryType || filters?.role) {
         const query = base.Query();
