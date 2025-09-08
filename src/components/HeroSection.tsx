@@ -91,17 +91,20 @@ export const HeroSection = () => {
             {/* Trust Indicators */}
             {trustIndicators && trustIndicators.length > 0 && (
               <div className="pt-8 border-t border-white/20">
-                <div className="flex items-center space-x-6">
-                  <span className="text-white/70 text-sm font-medium">Trusted by:</span>
-                  {trustIndicators.map((indicator: any) => (
-                    <div key={indicator.uid} className="flex items-center space-x-2">
-                      <img
-                        src={indicator.logo_url}
-                        alt={indicator.company_name}
-                        className="h-8 opacity-80 hover:opacity-100 transition-opacity"
-                      />
+                <div className="flex items-center gap-6">
+                  <span className="text-white/70 text-sm font-medium whitespace-nowrap">Trusted by:</span>
+                  <div className="logo-marquee">
+                    <div className="logo-track">
+                      {[...trustIndicators, ...trustIndicators].map((indicator: any, idx: number) => (
+                        <img
+                          key={`${indicator.uid}_${idx}`}
+                          src={indicator.logo_url}
+                          alt={indicator.company_name}
+                          className="h-8 opacity-80 hover:opacity-100 transition-opacity"
+                        />
+                      ))}
                     </div>
-                  ))}
+                  </div>
                 </div>
               </div>
             )}
@@ -137,7 +140,7 @@ export const HeroSection = () => {
 
       {/* Case Studies */}
       {caseStudies && caseStudies.length > 0 && (
-        <div className="container relative z-10 pb-16">
+        <div id="learn-more" className="container relative z-10 pb-16">
           <div className="bg-background/80 backdrop-blur rounded-xl border border-border p-6">
             <div className="mb-4">
               <h3 className="text-xl font-semibold text-foreground">Recommended Case Studies</h3>

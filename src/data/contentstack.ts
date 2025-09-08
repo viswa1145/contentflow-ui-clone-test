@@ -139,12 +139,13 @@ export const fetchContentstackData = async (contentType: string, filters?: { ind
       }
       case 'case_studies': {
         const all = mockContentstackData.case_studies || [];
-        if (!filters) return all;
-        return all.filter((cs: any) => {
+        if (!filters || (!filters.industryType && !filters.role)) return all;
+        const filtered = all.filter((cs: any) => {
           const industryOk = !filters.industryType || cs.industry === filters.industryType;
           const roleOk = !filters.role || cs.role === filters.role;
           return industryOk && roleOk;
         });
+        return filtered.length > 0 ? filtered : all;
       }
       case 'seasonal_theme': {
         const today = new Date();
@@ -177,23 +178,29 @@ export const fetchContentstackData = async (contentType: string, filters?: { ind
   
   switch (contentType) {
     case 'case_studies': {
-      const query = Stack.ContentType('case_study').Query();
-      if (filters?.industryType) query.where('industry', filters.industryType);
-      if (filters?.role) query.where('role', filters.role);
-      if (import.meta.env.DEV) {
-        // eslint-disable-next-line no-console
-        console.debug('[TC360] CSK query case_study', { industry: filters?.industryType, role: filters?.role });
-      }
-      const result = await query.toJSON().find();
-      const entries = unwrap(result) as any[];
-      const mapped = (Array.isArray(entries) ? entries : [entries]).map((e: any) => {
+      const base = Stack.ContentType('case_study');
+      const makeMap = (entries: any[]) => (Array.isArray(entries) ? entries : [entries]).map((e: any) => {
         const slug = e.slug || e.uid;
-        return {
-          ...e,
-          link: e.link || (slug ? `/case-studies/${slug}` : undefined),
-        };
+        return { ...e, link: e.link || (slug ? `/case-studies/${slug}` : undefined) };
       });
-      return mapped;
+      if (filters?.industryType || filters?.role) {
+        const query = base.Query();
+        if (filters?.industryType) query.where('industry', filters.industryType);
+        if (filters?.role) query.where('role', filters.role);
+        if (import.meta.env.DEV) {
+          // eslint-disable-next-line no-console
+          console.debug('[TC360] CSK query case_study', { industry: filters?.industryType, role: filters?.role });
+        }
+        const res = unwrap(await query.toJSON().find());
+        const mapped = makeMap(res as any[]);
+        if (Array.isArray(mapped) && mapped.length > 0) return mapped;
+        // Fallback to all
+        const allRes = unwrap(await base.Query().toJSON().find());
+        return makeMap(allRes as any[]);
+      } else {
+        const allRes = unwrap(await base.Query().toJSON().find());
+        return makeMap(allRes as any[]);
+      }
     }
     case 'announcement_banner': {
       const query = Stack.ContentType('announcement_banner').Query();
@@ -277,7 +284,17 @@ export const fetchContentstackData = async (contentType: string, filters?: { ind
     }
     case 'trust_indicators': {
       const result = await Stack.ContentType('trust_indicator').Query().toJSON().find();
-      return unwrap(result);
+      const unwrapped = unwrap(result) as any[];
+      // Normalize Asset field shape and title fallback
+      const items = (Array.isArray(unwrapped) ? unwrapped : [unwrapped]).map((it: any) => {
+        const logo = typeof it.logo_url === 'string' ? it.logo_url : (it.logo_url?.url || it.logo_url?.image_url);
+        return {
+          ...it,
+          company_name: it.company_name || it.title,
+          logo_url: logo,
+        };
+      });
+      return items;
     }
     case 'products_page':
     case 'industries_page':
