@@ -190,14 +190,19 @@ const Demo = () => {
                 try {
                   const dateStr = preferredDate ? format(preferredDate, 'yyyy-MM-dd') : undefined;
                   const combined = dateStr && preferredTime ? `${dateStr}T${preferredTime}:00` : undefined;
-                  const res = await fetch("/.netlify/functions/lead", {
+                  const url = (import.meta as any).env.VITE_AUTOMATION_DEMO_WEBHOOK || "/.netlify/functions/lead";
+                  const headers: Record<string, string> = { "content-type": "application/json" };
+                  const secret = (import.meta as any).env.VITE_AUTOMATION_SECRET as string | undefined;
+                  if (secret) headers["x-cs-secret"] = secret;
+                  const res = await fetch(url, {
                     method: "POST",
-                    headers: { "content-type": "application/json" },
+                    headers,
                     body: JSON.stringify({
                       ...form,
                       industryType: industryType || form.industry || undefined,
                       role,
                       page: window.location.pathname,
+                      page_url: window.location.pathname,
                       preferredDate: dateStr,
                       preferredTime,
                       timeZone,
@@ -214,7 +219,7 @@ const Demo = () => {
                 {submitting ? 'Submitting…' : data.form_config.submit_cta}
               </Button>
               {submitted === "ok" && (
-                <div className="text-xs text-primary text-center">Thanks! We 0ll be in touch shortly.</div>
+                <div className="text-xs text-primary text-center">Thanks! We'll be in touch shortly.</div>
               )}
               {submitted === "error" && (
                 <div className="text-xs text-destructive text-center">Something went wrong. Please try again.</div>
