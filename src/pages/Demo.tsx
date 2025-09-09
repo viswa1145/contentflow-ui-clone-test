@@ -198,6 +198,7 @@ const Demo = () => {
                     method: "POST",
                     headers,
                     body: JSON.stringify({
+                      type: 'demo',
                       ...form,
                       industryType: industryType || form.industry || undefined,
                       role,
