@@ -17,6 +17,21 @@ const Pricing = () => {
     queryKey: ["pricing_page"],
     queryFn: () => fetchContentstackData("pricing_page"),
   });
+  const { data: seasonal } = useQuery({
+    queryKey: ["seasonal_theme"],
+    queryFn: () => fetchContentstackData("seasonal_theme", { region: "in" } as any),
+    staleTime: 1000 * 60 * 60,
+  });
+  // Fallback offer for testing via ?festival param when seasonal offer not configured
+  const params = new URLSearchParams(location.search);
+  const festivalParam = params.get('festival');
+  let storedFestival: string | null = null;
+  try { storedFestival = localStorage.getItem('tc360_festival'); } catch {}
+  const effectiveFestival = festivalParam || storedFestival || null;
+  const seasonalFallback: any = effectiveFestival && (!seasonal || !seasonal.offer_enabled)
+    ? { offer_enabled: true, discount_percent: 20, badge_text: 'Festival Offer', promo_code: String(effectiveFestival).toUpperCase(), ends_at: new Date(Date.now() + 48*60*60*1000).toISOString() }
+    : null;
+  const seasonalToUse: any = seasonalFallback || seasonal;
 
   if (!data) return null;
 
@@ -46,20 +61,54 @@ const Pricing = () => {
 
         {/* Pricing Cards */}
         <div className="grid md:grid-cols-3 gap-8 mb-16">
-          {data.plans.map((plan: any) => (
+          {data.plans.map((plan: any) => {
+            const offer = seasonalToUse?.offer_enabled ? seasonalToUse : null;
+            // Discount any numeric (non-custom) price regardless of currency symbol or type
+            let numeric: number | null = null;
+            if (typeof plan.price === 'number') {
+              numeric = plan.price;
+            } else if (typeof plan.price === 'string') {
+              const onlyNum = plan.price.replace(/[^\d.]/g, '');
+              numeric = onlyNum ? Number(onlyNum) : null;
+            }
+            const isDiscounted = offer && typeof offer.discount_percent === 'number' && numeric != null;
+            const discountedValue = isDiscounted && numeric != null ? Number((numeric * (1 - offer.discount_percent / 100)).toFixed(0)) : null;
+            const discounted = discountedValue != null ? `$${discountedValue}` : null;
+            const saving = isDiscounted && numeric != null ? `$${(numeric - (discountedValue || 0))}` : null;
+            return (
             <Card id={plan.name.toLowerCase()} key={plan.uid} className={`relative overflow-hidden hover:shadow-elegant transition-all duration-300 ${plan.popular ? 'border-primary shadow-card scale-105' : ''}`}>
+              {isDiscounted && (
+                <div className="absolute top-2 left-2">
+                  <Badge className="bg-accent text-foreground">Save {offer.discount_percent}%</Badge>
+                </div>
+              )}
               {plan.badge && (
                 <div className="absolute top-0 right-0">
                   <Badge className="rounded-none rounded-bl-lg bg-primary text-primary-foreground">
-                    {plan.badge}
+                    {offer?.badge_text && isDiscounted ? offer.badge_text : plan.badge}
                   </Badge>
                 </div>
               )}
               <CardHeader className="text-center pb-6">
                 <CardTitle className="text-2xl font-bold">{plan.name}</CardTitle>
                 <div className="py-4">
-                  <span className="text-4xl font-bold text-primary">{plan.price}</span>
-                  <span className="text-muted-foreground ml-2">{plan.period}</span>
+                  {isDiscounted && discounted ? (
+                    <>
+                      <div className="text-sm text-muted-foreground line-through">{plan.price} {plan.period}</div>
+                      <div className="flex items-baseline justify-center gap-2">
+                        <span className="text-5xl font-extrabold text-primary">{discounted}</span>
+                        <span className="text-muted-foreground">{plan.period}</span>
+                      </div>
+                      {saving && (
+                        <div className="text-xs text-foreground/80 mt-1">You save {saving}</div>
+                      )}
+                    </>
+                  ) : (
+                    <>
+                      <span className="text-4xl font-bold text-primary">{plan.price}</span>
+                      <span className="text-muted-foreground ml-2">{plan.period}</span>
+                    </>
+                  )}
                 </div>
                 <CardDescription className="text-base">{plan.description}</CardDescription>
               </CardHeader>
@@ -81,11 +130,17 @@ const Pricing = () => {
                     window.dispatchEvent(ev);
                   }}
                 >
-                  {plan.cta}
+                  {offer?.cta_primary && isDiscounted ? offer.cta_primary : plan.cta}
                 </Button>
+                {isDiscounted && seasonalToUse?.ends_at && (
+                  <div className="text-xs text-muted-foreground text-center mt-3" id="festival">
+                    Offer ends {new Date(seasonalToUse.ends_at).toLocaleString()} — Code: {seasonalToUse.promo_code}
+                  </div>
+                )}
               </CardContent>
             </Card>
-          ))}
+            );
+          })}
         </div>
 
         {/* Features Grid */}

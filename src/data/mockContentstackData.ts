@@ -676,6 +676,17 @@ export const mockContentstackData = {
         end_date: "2025-10-28",
         class_name: "theme-diwali",
         banner_message: "Happy Diwali! Celebrate with special offers",
+        offer_enabled: true,
+        discount_percent: 20,
+        badge_text: "Festival Offer",
+        promo_copy: "Limited Diwali Offer: 20% off Professional plan ends soon!",
+        promo_code: "DIWALI20",
+        ends_at: "2025-10-28T23:59:59Z",
+        landing_url: "/pricing#festival",
+        cta_primary: "Get Festival Offer",
+        cta_secondary: "Talk to Sales",
+        newsletter_popup_enabled: false,
+        popup_copy: "Get festival insights and best practices."
       },
       {
         key: "holi",
@@ -685,6 +696,7 @@ export const mockContentstackData = {
         end_date: "2025-03-14",
         class_name: "theme-holi",
         banner_message: "Holi Hai! Bright colors and brighter HR",
+        offer_enabled: false
       },
       {
         key: "christmas",
@@ -694,6 +706,7 @@ export const mockContentstackData = {
         end_date: "2025-12-27",
         class_name: "theme-christmas",
         banner_message: "Merry Christmas from Team TC360",
+        offer_enabled: false
       }
     ]
   }

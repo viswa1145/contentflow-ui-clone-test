@@ -190,7 +190,7 @@ const Demo = () => {
                 try {
                   const dateStr = preferredDate ? format(preferredDate, 'yyyy-MM-dd') : undefined;
                   const combined = dateStr && preferredTime ? `${dateStr}T${preferredTime}:00` : undefined;
-                  const url = (import.meta as any).env.VITE_AUTOMATION_DEMO_WEBHOOK || "/.netlify/functions/lead";
+                  const url = (import.meta as any).env.VITE_AUTOMATION_DEMO_WEBHOOK || (import.meta as any).env.VITE_AUTOMATION_DEMO_WEBHOOK || "/.netlify/functions/lead";
                   const headers: Record<string, string> = { "content-type": "application/json" };
                   const secret = (import.meta as any).env.VITE_AUTOMATION_SECRET as string | undefined;
                   if (secret) headers["x-cs-secret"] = secret;
@@ -204,6 +204,7 @@ const Demo = () => {
                       role,
                       page: window.location.pathname,
                       page_url: window.location.pathname,
+                      campaign: (() => { try { return (localStorage.getItem('tc360_festival') || document.documentElement.className.match(/theme-(\w+)/)?.[1]) || undefined; } catch { return undefined; } })(),
                       preferredDate: dateStr,
                       preferredTime,
                       timeZone,
