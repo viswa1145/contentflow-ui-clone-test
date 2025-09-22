@@ -194,6 +194,14 @@ const Demo = () => {
                   const headers: Record<string, string> = { "content-type": "application/json" };
                   const secret = (import.meta as any).env.VITE_AUTOMATION_SECRET as string | undefined;
                   if (secret) headers["x-cs-secret"] = secret;
+                  const params = new URLSearchParams(location.search);
+                  const utm = {
+                    source: params.get('utm_source') || undefined,
+                    medium: params.get('utm_medium') || undefined,
+                    campaign: params.get('utm_campaign') || undefined,
+                    term: params.get('utm_term') || undefined,
+                    content: params.get('utm_content') || undefined,
+                  };
                   const res = await fetch(url, {
                     method: "POST",
                     headers,
@@ -202,9 +210,10 @@ const Demo = () => {
                       ...form,
                       industryType: industryType || form.industry || undefined,
                       role,
-                      page: window.location.pathname,
                       page_url: window.location.pathname,
                       campaign: (() => { try { return (localStorage.getItem('tc360_festival') || document.documentElement.className.match(/theme-(\w+)/)?.[1]) || undefined; } catch { return undefined; } })(),
+                      utm,
+                      ts: new Date().toISOString(),
                       preferredDate: dateStr,
                       preferredTime,
                       timeZone,
