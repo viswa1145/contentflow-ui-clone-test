@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { useQuery } from "@tanstack/react-query";
 import { fetchContentstackData } from "@/data/contentstack";
 import { Check, Star, Zap, Shield, Globe, TrendingUp } from "lucide-react";
+import { useLocation } from "react-router-dom";
 
 const iconMap: Record<string, JSX.Element> = {
   zap: <Zap className="h-6 w-6" />,
@@ -13,9 +14,22 @@ const iconMap: Record<string, JSX.Element> = {
 };
 
 const Pricing = () => {
-  const { data } = useQuery({
+  const location = useLocation();
+  const { data, isLoading, error } = useQuery({
     queryKey: ["pricing_page"],
-    queryFn: () => fetchContentstackData("pricing_page"),
+    queryFn: async () => {
+      try {
+        const result = await fetchContentstackData("pricing_page");
+        console.log("Pricing page data:", result);
+        if (!result) {
+          throw new Error("Pricing page data is null or undefined");
+        }
+        return result;
+      } catch (err) {
+        console.error("Error fetching pricing page:", err);
+        throw err;
+      }
+    },
   });
   const { data: seasonal } = useQuery({
     queryKey: ["seasonal_theme"],
@@ -33,7 +47,58 @@ const Pricing = () => {
     : null;
   const seasonalToUse: any = seasonalFallback || seasonal;
 
-  if (!data) return null;
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Loading pricing...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    console.error("Pricing page error:", error);
+    let errorMessage = "Unknown error";
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    } else if (typeof error === 'object' && error !== null) {
+      errorMessage = JSON.stringify(error, null, 2);
+    } else {
+      errorMessage = String(error);
+    }
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center max-w-md">
+          <p className="text-destructive mb-2 font-semibold">Error loading pricing data</p>
+          <p className="text-sm text-muted-foreground mb-4 font-mono text-xs break-all">{errorMessage}</p>
+          <Button onClick={() => window.location.reload()}>Retry</Button>
+          <p className="text-xs text-muted-foreground mt-4">Check browser console (F12) for more details</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!data) {
+    console.warn("Pricing page: data is null or undefined");
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-muted-foreground mb-4">No pricing data available</p>
+          <Button onClick={() => window.location.reload()}>Reload</Button>
+        </div>
+      </div>
+    );
+  }
+
+  const planAnchor = (plan: any) =>
+    plan.slug ||
+    String(plan.name || "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/(^-|-$)/g, "") ||
+    "plan";
 
   return (
     <div className="min-h-screen bg-background">
@@ -51,11 +116,17 @@ const Pricing = () => {
         {/* Jump Bar */}
         <div className="sticky top-[64px] z-30 bg-background/90 backdrop-blur border-b border-border mb-6 py-2">
           <div className="flex gap-3 overflow-x-auto text-sm">
-            <a href="#starter" className="px-3 py-1 rounded-md border border-border hover:bg-accent/10">Starter</a>
-            <a href="#professional" className="px-3 py-1 rounded-md border border-border hover:bg-accent/10">Professional</a>
-            <a href="#enterprise" className="px-3 py-1 rounded-md border border-border hover:bg-accent/10">Enterprise</a>
-            <a href="#highlights" className="px-3 py-1 rounded-md border border-border hover:bg-accent/10">Highlights</a>
-            <a href="#faqs" className="px-3 py-1 rounded-md border border-border hover:bg-accent/10">FAQs</a>
+            {data.plans.map((plan: any) => (
+              <a
+                key={plan.uid}
+                href={`#${planAnchor(plan)}`}
+                className="px-3 py-1 rounded-md border border-border hover:bg-accent/10 whitespace-nowrap"
+              >
+                {plan.name}
+              </a>
+            ))}
+            <a href="#highlights" className="px-3 py-1 rounded-md border border-border hover:bg-accent/10 whitespace-nowrap">Highlights</a>
+            <a href="#faqs" className="px-3 py-1 rounded-md border border-border hover:bg-accent/10 whitespace-nowrap">FAQs</a>
           </div>
         </div>
 
@@ -76,7 +147,7 @@ const Pricing = () => {
             const discounted = discountedValue != null ? `$${discountedValue}` : null;
             const saving = isDiscounted && numeric != null ? `$${(numeric - (discountedValue || 0))}` : null;
             return (
-            <Card id={plan.name.toLowerCase()} key={plan.uid} className={`relative overflow-hidden hover:shadow-elegant transition-all duration-300 ${plan.popular ? 'border-primary shadow-card scale-105' : ''}`}>
+            <Card id={planAnchor(plan)} key={plan.uid} className={`relative overflow-hidden hover:shadow-elegant transition-all duration-300 ${plan.popular ? 'border-primary shadow-card scale-105' : ''}`}>
               {isDiscounted && (
                 <div className="absolute top-2 left-2">
                   <Badge className="bg-accent text-foreground">Save {offer.discount_percent}%</Badge>
@@ -125,7 +196,7 @@ const Pricing = () => {
                   className={`w-full ${plan.popular ? 'bg-primary hover:bg-primary-light' : ''}`}
                   variant={plan.popular ? "default" : "outline"}
                   onClick={() => {
-                    const type = plan.name.toLowerCase() === 'enterprise' ? 'contact' : 'trial';
+                    const type = plan.lead_type || (String(plan.name).toLowerCase() === 'enterprise' ? 'contact' : 'trial');
                     const ev = new CustomEvent('tc360:lead', { detail: { type } });
                     window.dispatchEvent(ev);
                   }}

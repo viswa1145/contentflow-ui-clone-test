@@ -13,7 +13,7 @@ const IndustryDetail = () => {
         <div className="container py-20">
           <h1 className="text-3xl font-bold">Industry Not Found</h1>
           <p className="text-muted-foreground mt-2">We couldn't find this industry.</p>
-          <Link to="/industries" className="text-primary">Back to Industries</Link>
+          <Link to="/playbooks" className="text-primary">Back to DevOps Solutions</Link>
         </div>
       </div>
     );
@@ -21,7 +21,7 @@ const IndustryDetail = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Seo title={`${data.title} — TalentConnect360`} description={data.overview} />
+      <Seo title={`${data.title} — DevOpsCopilot`} description={data.overview} />
       <div className="container py-16 space-y-10">
         <div>
           <h1 className="text-4xl font-bold text-foreground mb-3">{data.title}</h1>
@@ -49,7 +49,16 @@ const IndustryDetail = () => {
               ))}
             </div>
             <div className="mt-6">
-              <a href={`/demo?industrytype=${data.slug}`} className="px-4 py-2 rounded-md border border-border hover:bg-accent/10">Request a demo</a>
+              <button 
+                onClick={(e) => {
+                  e.preventDefault();
+                  const ev = new CustomEvent('tc360:demo-chat', { detail: { open: true } });
+                  window.dispatchEvent(ev);
+                }}
+                className="px-4 py-2 rounded-md border border-border hover:bg-accent/10"
+              >
+                Request a demo
+              </button>
             </div>
           </div>
         </div>

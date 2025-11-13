@@ -20,8 +20,27 @@ import SolutionDetail from "./pages/SolutionDetail";
 import ProductDetail from "./pages/ProductDetail";
 import Careers from "./pages/Careers";
 import JobDetail from "./pages/JobDetail";
+import Terms from "./pages/Terms";
+import Privacy from "./pages/Privacy";
+import Security from "./pages/Security";
+import Status from "./pages/Status";
+import Cookies from "./pages/Cookies";
+import Accessibility from "./pages/Accessibility";
+import Sitemap from "./pages/Sitemap";
+import { DemoChatbot } from "./components/DemoChatbot";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      // Show data immediately, don't wait for refetch
+      staleTime: Infinity,
+      // Don't refetch on mount if we have data
+      refetchOnMount: false,
+      // Don't show loading states for cached data
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -34,22 +53,30 @@ const App = () => (
             <Route element={<AppLayout />}>
               <Route path="/" element={<Index />} />
               <Route path="/products" element={<Products />} />
-              <Route path="/industries" element={<Industries />} />
+              <Route path="/playbooks" element={<Industries />} />
               <Route path="/pricing" element={<Pricing />} />
               <Route path="/demo" element={<Demo />} />
               <Route path="/company" element={<Company />} />
               <Route path="/resources" element={<Resources />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/case-studies/:slug" element={<CaseStudy />} />
-              <Route path="/industries/:slug" element={<IndustryDetail />} />
+              <Route path="/playbooks/:slug" element={<IndustryDetail />} />
               <Route path="/solutions/:slug" element={<SolutionDetail />} />
               <Route path="/products/:slug" element={<ProductDetail />} />
               <Route path="/careers" element={<Careers />} />
               <Route path="/careers/:slug" element={<JobDetail />} />
+              <Route path="/terms" element={<Terms />} />
+              <Route path="/privacy" element={<Privacy />} />
+              <Route path="/security" element={<Security />} />
+              <Route path="/status" element={<Status />} />
+              <Route path="/cookies" element={<Cookies />} />
+              <Route path="/accessibility" element={<Accessibility />} />
+              <Route path="/sitemap" element={<Sitemap />} />
               <Route path="*" element={<NotFound />} />
             </Route>
           </Routes>
         </BrowserRouter>
+        <DemoChatbot />
       </TooltipProvider>
     </ThemeProvider>
   </QueryClientProvider>

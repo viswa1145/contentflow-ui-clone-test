@@ -1,4 +1,4 @@
-### TalentConnect360 Contentstack Content Types
+### DevOpsCopilot Contentstack Content Types
 
 1. announcement_banner
 - title: Text (required)

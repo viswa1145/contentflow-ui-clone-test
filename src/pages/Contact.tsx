@@ -1,9 +1,11 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import Seo from "@/components/Seo";
 
 const Contact = () => {
   return (
     <div className="min-h-screen bg-background">
+      <Seo title="Contact Us — DevOpsCopilot" description="Get in touch with our team. We're here to help with sales, support, and media inquiries." />
       <div className="container py-20 space-y-12">
         <div className="text-center">
           <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-4">Contact Us</h1>
@@ -18,7 +20,7 @@ const Contact = () => {
               <CardTitle>Sales</CardTitle>
             </CardHeader>
             <CardContent className="text-muted-foreground space-y-4">
-              <div>sales@talentconnect360.com</div>
+              <div>sales@devopscopilot.com</div>
               <Button variant="outline" onClick={() => { const ev = new CustomEvent('tc360:lead', { detail: { type: 'contact' } }); window.dispatchEvent(ev); }}>Contact Sales</Button>
             </CardContent>
           </Card>
@@ -27,7 +29,7 @@ const Contact = () => {
               <CardTitle>Support</CardTitle>
             </CardHeader>
             <CardContent className="text-muted-foreground space-y-4">
-              <div>support@talentconnect360.com</div>
+              <div>support@devopscopilot.com</div>
               <Button variant="outline" onClick={() => { const ev = new CustomEvent('tc360:lead', { detail: { type: 'support' } }); window.dispatchEvent(ev); }}>Open a Ticket</Button>
             </CardContent>
           </Card>
@@ -36,7 +38,7 @@ const Contact = () => {
               <CardTitle>Press</CardTitle>
             </CardHeader>
             <CardContent className="text-muted-foreground space-y-4">
-              <div>press@talentconnect360.com</div>
+              <div>press@devopscopilot.com</div>
               <Button variant="outline" onClick={() => { const ev = new CustomEvent('tc360:lead', { detail: { type: 'media' } }); window.dispatchEvent(ev); }}>Media Kit</Button>
             </CardContent>
           </Card>

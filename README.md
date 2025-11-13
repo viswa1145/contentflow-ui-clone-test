@@ -1,4 +1,4 @@
-# TalentConnect360
+# DevOpsCopilot
 
 Modern, personalized marketing site and product surface for HR tech, powered by Contentstack, Vite + React + TypeScript, Tailwind, and shadcn/ui. Built to run on Contentstack Launch with Contentstack Automation for lead routing.
 

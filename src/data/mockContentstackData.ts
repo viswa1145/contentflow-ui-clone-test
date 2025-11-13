@@ -6,46 +6,46 @@ export const mockContentstackData = {
     locale: "en-us",
     created_at: "2024-01-01T10:00:00Z",
     updated_at: "2024-01-01T10:00:00Z",
-    message: "Welcome to TalentConnect360! Explore our new features. ✨",
+    message: "Welcome to DevOpsCopilot! Explore our new features. ✨",
     link_text: "Learn More",
     link_url: "/resources",
     type: "info" as const,
   },
   hero_section: {
     uid: "mock_hero_1",
-    title: "TalentConnect360 Hero",
+    title: "DevOpsCopilot Hero",
     content_type: "hero_section",
     locale: "en-us",
     created_at: "2024-01-01T10:00:00Z",
     updated_at: "2024-01-01T10:00:00Z",
-    headline: "Connect, Engage, Grow Your Talent",
-    subheadline: "Your Complete HR & Talent Management Solution",
-    description: "TalentConnect360 provides an all-in-one platform to streamline your HR processes, enhance employee experience, and drive organizational growth. From recruitment to retirement, we've got you covered.",
-    cta_text: "Request a Demo",
+    headline: "Ship Confidently with Your DevOps Copilot",
+    subheadline: "AI troubleshooting, runbook automation, and guided learning for high-velocity engineering teams.",
+    description: "DevOpsCopilot synthesizes observability, runbooks, and source control so every engineer can resolve incidents, prevent regressions, and stay ahead of infrastructure changes.",
+    cta_text: "Launch the Interactive Demo",
     cta_link: "/demo",
     background_image: {
-      url: "/src/assets/hero-dashboard.jpg",
-      alt: "TalentConnect360 Dashboard",
+      url: "",
+      alt: "DevOpsCopilot Dashboard",
     },
   },
   hero_section_variants: [
     {
       match: { industryType: "technology" },
       data: {
-        headline: "Empower Tech Teams with Smarter HR",
-        subheadline: "Built for fast-scaling engineering orgs",
-        description: "Automate HR ops for product and engineering teams with deep analytics.",
-        cta_text: "See Tech Demo",
+        headline: "Keep Your SaaS Platform Always-On",
+        subheadline: "Spot anomalies, triage incidents, and deploy safely with AI guardrails.",
+        description: "DevOpsCopilot plugs into PagerDuty, Datadog, and GitHub to guide SREs through incidents while capturing every decision for blameless reviews.",
+        cta_text: "See SaaS Playbook",
         cta_link: "/demo?industrytype=technology"
       }
     },
     {
       match: { industryType: "manufacturing" },
       data: {
-        headline: "Optimize Your Industrial Workforce",
-        subheadline: "Shift scheduling, safety compliance, analytics",
-        description: "All-in-one HR for plants and distributed workforces.",
-        cta_text: "See Manufacturing Demo",
+        headline: "Protect Production with Edge-to-Cloud Visibility",
+        subheadline: "Predict downtime, automate response steps, and sync OT + IT teams.",
+        description: "Bring telemetry from plant equipment and cloud services into one assistant so reliability engineers can keep lines running smoothly.",
+        cta_text: "Explore Reliability Demo",
         cta_link: "/demo?industrytype=manufacturing"
       }
     }
@@ -54,8 +54,8 @@ export const mockContentstackData = {
     {
       match: { role: "hr" },
       data: {
-        message: "HR Leaders: Discover our new AI workforce planning toolkit",
-        link_text: "Explore Toolkit",
+        message: "Platform Teams: Try the new Runbook Automation templates",
+        link_text: "Preview Templates",
         link_url: "/resources",
         type: "success" as const
       }
@@ -63,142 +63,76 @@ export const mockContentstackData = {
   ],
   case_studies: [
     {
-      uid: "cs_tech_ai",
-      slug: "alphasoft-tech",
+      uid: "cs_streamline_incidents",
+      slug: "skyforge-platform",
       industry: "technology",
-      role: "hr",
-      company_name: "AlphaSoft",
-      title: "Scaling HR for a 800-person engineering org",
-      summary: "Reduced time-to-hire by 35% and boosted retention 12% using TC360.",
-      logo_url: "/api/placeholder/160/60?text=AlphaSoft",
-      link: "/case-studies/alphasoft-tech",
-      hero_image_url: "/api/placeholder/1200/600?text=AlphaSoft+Engineering",
-      banner_kicker: "Technology • HR",
+      role: "sre",
+      company_name: "Skyforge",
+      title: "Stabilizing a Multi-Region SaaS Platform",
+      summary: "DevOpsCopilot cut MTTR in half and automated incident summaries for a 24/7 gaming platform.",
+      logo_url: "/api/placeholder/160/60?text=Skyforge",
+      link: "/case-studies/skyforge-platform",
+      hero_image_url: "/api/placeholder/1200/600?text=Skyforge+Platform",
+      banner_kicker: "Technology • SRE",
       stats: [
-        { label: "Time-to-Hire", value: "-35%" },
-        { label: "Retention", value: "+12%" },
-        { label: "Onboarding Time", value: "-40%" }
+        { label: "MTTR", value: "-52%" },
+        { label: "Deploy Success Rate", value: "+18%" },
+        { label: "Postmortem Prep Time", value: "-80%" }
       ],
       highlights: [
-        "Automated screening and interview scheduling",
-        "Unified candidate and employee data",
-        "Manager self-serve dashboards"
+        "Unified alert context across PagerDuty, Grafana, and GitHub",
+        "AI-generated mitigation steps with rollback automation",
+        "Automatic incident timeline and Jira ticket creation"
       ],
       quote: {
-        text: "TalentConnect360 helped us cut hiring time while elevating candidate experience.",
-        author: "Priya N.",
-        role: "VP People, AlphaSoft"
+        text: "On-call engineers finally have a copilot that understands our stack and recommends the next move instantly.",
+        author: "Lina Park",
+        role: "Head of SRE, Skyforge"
       },
       body_sections: [
-        { heading: "Challenge", content: "A rapidly scaling engineering org faced fragmented hiring workflows and poor visibility across recruiting and onboarding." },
-        { heading: "Solution", content: "Standardized pipelines, AI-aided screening, and integrated onboarding with role-based access." },
-        { heading: "Outcome", content: "Significant reduction in time-to-hire and smoother day-one readiness, improving manager satisfaction." }
+        { heading: "Challenge", content: "Frequent late-night incidents with incomplete runbooks and siloed telemetry created stressful escalations." },
+        { heading: "Solution", content: "Connected observability, enriched runbooks, and guardrailed automations surfaced via DevOpsCopilot chat." },
+        { heading: "Outcome", content: "Major incident duration fell below 20 minutes and deploy confidence increased across teams." }
       ]
     },
     {
-      uid: "cs_manufacturing_ops",
-      slug: "indupro-manufacturing",
-      industry: "manufacturing",
-      role: "operations",
-      company_name: "InduPro",
-      title: "Digitizing shift ops across 12 plants",
-      summary: "Saved 4,000 manager hours/year with automated scheduling.",
-      logo_url: "/api/placeholder/160/60?text=InduPro",
-      link: "/case-studies/indupro-manufacturing",
-      hero_image_url: "/api/placeholder/1200/600?text=InduPro+Plants",
-      banner_kicker: "Manufacturing • Operations",
+      uid: "cs_fintech_guardrails",
+      slug: "nova-finance",
+      industry: "finance",
+      role: "platform",
+      company_name: "Nova Finance",
+      title: "Scaling Compliance & Release Velocity",
+      summary: "Nova Finance automated release verification and compliance evidence capture with DevOpsCopilot.",
+      logo_url: "/api/placeholder/160/60?text=Nova",
+      link: "/case-studies/nova-finance",
+      hero_image_url: "/api/placeholder/1200/600?text=Nova+Finance",
+      banner_kicker: "Financial Services • Platform",
       stats: [
-        { label: "Manager Hours Saved", value: "4,000/yr" },
-        { label: "Absenteeism", value: "-9%" },
-        { label: "Compliance Incidents", value: "-25%" }
+        { label: "Release Lead Time", value: "-34%" },
+        { label: "Audit Prep Hours", value: "-70%" },
+        { label: "Chat Resolution Rate", value: "89%" }
       ],
       highlights: [
-        "Automated shift scheduling",
-        "Mobile attendance and safety tracking",
-        "Real-time plant analytics"
+        "Pre-flight compliance checks embedded in chat flows",
+        "Automated evidence collection for SOC 2 and PCI",
+        "Contextual training paths for new platform engineers"
       ],
       quote: {
-        text: "Scheduling went from a weekly headache to a background task we barely think about.",
-        author: "Miguel A.",
-        role: "Ops Director, InduPro"
+        text: "Our auditors now pull everything from the DevOpsCopilot timeline — no more screenshot hunts.",
+        author: "Mateo Ruiz",
+        role: "Director of Platform Engineering, Nova Finance"
       },
       body_sections: [
-        { heading: "Challenge", content: "Manual schedules across sites, inconsistent attendance capture, and reactive compliance." },
-        { heading: "Solution", content: "Centralized scheduling, geo-fenced mobile check-in, and compliance workflows." },
-        { heading: "Outcome", content: "Lowered absenteeism, fewer incidents, and reclaimed manager time for coaching." }
-      ]
-    },
-    {
-      uid: "cs_retail_ops",
-      slug: "shopsy-retail",
-      industry: "retail",
-      role: "operations",
-      company_name: "Shopsy",
-      title: "Elevating frontline engagement across 400+ stores",
-      summary: "Reduced attrition by 8% and lifted NPS by 11 points with mobile-first HR.",
-      logo_url: "/api/placeholder/160/60?text=Shopsy",
-      link: "/case-studies/shopsy-retail",
-      hero_image_url: "/api/placeholder/1200/600?text=Shopsy+Retail",
-      banner_kicker: "Retail • Operations",
-      stats: [
-        { label: "Attrition", value: "-8%" },
-        { label: "Employee NPS", value: "+11" },
-        { label: "Training Time", value: "-30%" }
-      ],
-      highlights: [
-        "Shift swaps and approvals in-app",
-        "Gamified learning modules",
-        "Store-level performance dashboards"
-      ],
-      quote: {
-        text: "Our associates finally have HR in their pocket — adoption is off the charts.",
-        author: "Leah T.",
-        role: "VP Store Ops, Shopsy"
-      },
-      body_sections: [
-        { heading: "Challenge", content: "Disengaged frontline workforce and fragmented store communications." },
-        { heading: "Solution", content: "Mobile-first HR, bite-sized learning, and clear store KPIs." },
-        { heading: "Outcome", content: "Improved retention, faster onboarding, and consistent CX." }
-      ]
-    },
-    {
-      uid: "cs_healthcare_hr",
-      slug: "mediview-healthcare",
-      industry: "healthcare",
-      role: "hr",
-      company_name: "MediView",
-      title: "Credentialing and scheduling made simple for clinicians",
-      summary: "Cut credentialing delays by 50% and filled shifts 25% faster.",
-      logo_url: "/api/placeholder/160/60?text=MediView",
-      link: "/case-studies/mediview-healthcare",
-      hero_image_url: "/api/placeholder/1200/600?text=MediView+Clinics",
-      banner_kicker: "Healthcare • HR",
-      stats: [
-        { label: "Credentialing Time", value: "-50%" },
-        { label: "Shift Fill Rate", value: "+25%" },
-        { label: "Compliance Tasks", value: "-35%" }
-      ],
-      highlights: [
-        "Automated credential tracking",
-        "Smart scheduler for multi-site coverage",
-        "Compliance workflows and audits"
-      ],
-      quote: {
-        text: "Scheduling and credentialing used to be our bottleneck — not anymore.",
-        author: "Dr. A. Chen",
-        role: "Clinical Director, MediView"
-      },
-      body_sections: [
-        { heading: "Challenge", content: "Manual credentialing and reactive scheduling caused patient care gaps." },
-        { heading: "Solution", content: "Centralized credential management and AI-assisted scheduling." },
-        { heading: "Outcome", content: "Faster staffing, better compliance, and happier clinicians." }
+        { heading: "Challenge", content: "Manual controls slowed releases and compliance reviews consumed engineering cycles." },
+        { heading: "Solution", content: "Guardrailed automations executed policy checks and captured artifacts while engineers deployed from chat." },
+        { heading: "Outcome", content: "Continuous delivery regained momentum without sacrificing regulatory confidence." }
       ]
     }
   ],
   navigation: [
     {
       uid: "mock_nav_1",
-      title: "Products Navigation",
+      title: "Solutions Navigation",
       content_type: "navigation_item",
       locale: "en-us",
       created_at: "2024-01-01T10:00:00Z",
@@ -206,10 +140,10 @@ export const mockContentstackData = {
       label: "Solutions",
       href: "/products",
       submenu: [
-        { label: "Core HR", href: "/products#core-hr", description: "Manage employee data, payroll, and benefits." },
-        { label: "Talent Acquisition", href: "/products#talent", description: "Attract, recruit, and onboard top talent." },
-        { label: "Performance Management", href: "/products#performance", description: "Set goals, conduct reviews, and foster growth." },
-        { label: "HR Analytics", href: "/products#analytics", description: "Gain insights with data-driven HR reports." },
+        { label: "Incident Autopilot", href: "/products#incident-autopilot", description: "Guide on-call engineers with AI-driven runbooks." },
+        { label: "Pipeline Intelligence", href: "/products#pipeline-intelligence", description: "Explain failing builds and safeguard releases." },
+        { label: "Knowledge Hub", href: "/products#knowledge-hub", description: "Centralize runbooks, dashboards, and best practices." },
+        { label: "Learning Paths", href: "/products#learning-paths", description: "Upskill teams with guided DevOps courses." },
       ],
     },
     {
@@ -219,13 +153,15 @@ export const mockContentstackData = {
       locale: "en-us",
       created_at: "2024-01-01T10:00:00Z",
       updated_at: "2024-01-01T10:00:00Z",
-      label: "Industries",
-      href: "/industries",
+      label: "DevOps Solutions",
+      href: "/playbooks",
       submenu: [
-        { label: "Tech & IT", href: "/industries#tech", description: "Tailored HR solutions for the tech sector." },
-        { label: "Manufacturing", href: "/industries#manufacturing", description: "Optimizing workforce for industrial needs." },
-        { label: "Retail & Hospitality", href: "/industries#retail", description: "Flexible HR for dynamic environments." },
-        { label: "Healthcare", href: "/industries#healthcare", description: "Specialized HR for healthcare providers." },
+        { label: "SaaS & Cloud", href: "/playbooks#saas-cloud", description: "Reliability playbooks for cloud-native platforms." },
+        { label: "Financial Services", href: "/playbooks#financial-services", description: "Regulated delivery with built-in compliance guardrails." },
+        { label: "Media & Gaming", href: "/playbooks#media-gaming", description: "High-traffic streaming and gaming operations." },
+        { label: "Manufacturing & IoT", href: "/playbooks#manufacturing-iot", description: "Edge-to-cloud monitoring for critical lines." },
+        { label: "MLOps", href: "/playbooks#mlops", description: "Machine learning operations and model lifecycle management." },
+        { label: "LLMOps", href: "/playbooks#llmops", description: "Large language model operations and prompt engineering." },
       ],
     },
     {
@@ -283,7 +219,7 @@ export const mockContentstackData = {
       updated_at: "2024-01-01T10:00:00Z",
       company_name: "Innovate Corp",
       logo_url: "/api/placeholder/200/80?text=Innovate",
-      testimonial: "TalentConnect360 transformed our HR operations.",
+      testimonial: "DevOpsCopilot transformed our DevOps operations.",
     },
     {
       uid: "mock_trust_2",
@@ -292,60 +228,60 @@ export const mockContentstackData = {
       locale: "en-us",
       created_at: "2024-01-01T10:00:00Z",
       updated_at: "2024-01-01T10:00:00Z",
-      company_name: "Gartner",
-      logo_url: "/api/placeholder/200/80?text=Gartner",
-      testimonial: "Recognized as a visionary in HCM technology.",
+      company_name: "Velocity Research",
+      logo_url: "/api/placeholder/200/80?text=Velocity",
+      testimonial: "Named DevOpsCopilot a leader in AI-powered incident management.",
     },
   ],
   products_page: {
     slug: "products",
-    header_title: "Our Products",
-    header_subtitle: "Comprehensive HR solutions designed for the modern workplace.",
+    header_title: "DevOpsCopilot Platform",
+    header_subtitle: "AI copilots for incident response, release health, and continuous enablement.",
     products: [
       {
-        uid: "prod_core_hr",
-        slug: "core-hr",
-        title: "Core HR",
-        description: "Complete HR management solution for modern organizations",
-        features: ["Employee Database", "Attendance Management", "Leave Management", "Document Management"],
-        badge: "Popular",
-        icon_key: "users",
-        learn_more_link: "/products/core-hr"
-      },
-      {
-        uid: "prod_talent",
-        slug: "talent-acquisition",
-        title: "Talent Acquisition",
-        description: "Smart recruiting platform powered by AI",
-        features: ["AI-Powered Sourcing", "Interview Scheduling", "Candidate Tracking", "Offer Management"],
-        badge: "AI Powered",
-        icon_key: "zap",
-        learn_more_link: "/products/talent-acquisition"
-      },
-      {
-        uid: "prod_performance",
-        slug: "performance-management",
-        title: "Performance Management",
-        description: "Drive employee performance and growth",
-        features: ["Goal Setting", "Performance Reviews", "360 Feedback", "Development Plans"],
-        badge: "New",
-        icon_key: "bar_chart",
-        learn_more_link: "/products/performance-management"
-      },
-      {
-        uid: "prod_analytics",
-        slug: "analytics-insights",
-        title: "Analytics & Insights",
-        description: "Data-driven HR decisions with powerful analytics",
-        features: ["Real-time Dashboards", "Predictive Analytics", "Custom Reports", "Compliance Tracking"],
-        badge: "Enterprise",
+        uid: "prod_incident_autopilot",
+        slug: "incident-autopilot",
+        title: "Incident Autopilot",
+        description: "Guide on-call engineers with end-to-end triage, remediation, and documentation.",
+        features: ["Unified alert context", "AI mitigation suggestions", "Chat-triggered automations", "Instant post-incident reports"],
+        badge: "Most Adopted",
         icon_key: "shield",
-        learn_more_link: "/products/analytics-insights"
+        learn_more_link: "/products/incident-autopilot"
+      },
+      {
+        uid: "prod_pipeline_intelligence",
+        slug: "pipeline-intelligence",
+        title: "Pipeline Intelligence",
+        description: "Explain failing builds, guard your releases, and keep shipping momentum high.",
+        features: ["Build log summarization", "Policy enforcement gates", "Rollback & hotfix flows", "Deployment health dashboards"],
+        badge: "New",
+        icon_key: "cpu",
+        learn_more_link: "/products/pipeline-intelligence"
+      },
+      {
+        uid: "prod_knowledge_graph",
+        slug: "knowledge-graph",
+        title: "Knowledge Graph",
+        description: "Make runbooks, dashboards, and architecture diagrams instantly discoverable in chat.",
+        features: ["Source-aware answers", "Auto-updated runbooks", "Contextual recommendations", "Version-aware responses"],
+        badge: "AI Driven",
+        icon_key: "bar_chart",
+        learn_more_link: "/products/knowledge-graph"
+      },
+      {
+        uid: "prod_learning_hub",
+        slug: "learning-hub",
+        title: "Learning Hub",
+        description: "Blend self-paced labs and coaching with real incident scenarios.",
+        features: ["Role-based learning paths", "Hands-on sandboxes", "Skills analytics", "Certification prep"],
+        badge: "Enablement",
+        icon_key: "users",
+        learn_more_link: "/products/learning-hub"
       }
     ],
     cta_section: {
-      title: "Ready to Transform Your HR?",
-      subtitle: "Join companies using TalentConnect360 to revolutionize HR processes",
+      title: "Ready to Elevate Your DevOps Practice?",
+      subtitle: "Join platform teams using DevOpsCopilot to resolve incidents faster and ship with confidence.",
       primary_cta_text: "Schedule a Demo",
       primary_cta_link: "/demo",
       secondary_cta_text: "Contact Sales",
@@ -353,24 +289,26 @@ export const mockContentstackData = {
     }
   },
   industries_page: {
-    slug: "industries",
-    header_title: "Industries & Solutions",
-    header_subtitle: "Tailored HR solutions for every industry.",
+    slug: "playbooks",
+    header_title: "DevOps Solutions",
+    header_subtitle: "Purpose-built copilots for the teams that keep software running.",
     industries: [
-      { uid: "ind_tech", title: "Technology", description: "Scale your tech workforce with agile HR solutions", stats: "500+ Tech Companies", features: ["Remote Work Management", "Agile Performance Reviews", "Skills-based Hiring", "Retention Analytics"], icon_key: "cpu" },
-      { uid: "ind_manufacturing", title: "Manufacturing", description: "Optimize your industrial workforce operations", stats: "200+ Manufacturing Plants", features: ["Shift Management", "Safety Compliance", "Blue-collar Engagement", "Production Analytics"], icon_key: "factory" },
-      { uid: "ind_retail", title: "Retail", description: "Manage distributed retail teams efficiently", stats: "150+ Retail Chains", features: ["Store Operations", "Seasonal Hiring", "Customer Service Training", "Sales Performance"], icon_key: "shopping_cart" },
-      { uid: "ind_healthcare", title: "Healthcare", description: "Support healthcare professionals with specialized HR tools", stats: "100+ Healthcare Organizations", features: ["Compliance Management", "Credentialing", "Schedule Optimization", "Patient Care Metrics"], icon_key: "heart" },
+      { uid: "ind_tech", title: "SaaS & Cloud", description: "Keep multi-region platforms reliable with AI-powered incident response.", stats: "500+ Cloud Platforms", features: ["PagerDuty & Datadog context", "Canary & rollback automation", "Postmortem co-author", "Customer impact summaries"], icon_key: "cpu" },
+      { uid: "ind_finance", title: "Financial Services", description: "Ship fast and stay compliant with evidence-backed releases.", stats: "120+ FinServ Teams", features: ["Policy-aware deploy gates", "Audit-ready timelines", "Automated control checks", "PII-safe knowledge base"], icon_key: "shield" },
+      { uid: "ind_media", title: "Media & Gaming", description: "Absorb traffic spikes and keep player experiences smooth.", stats: "80+ Media Networks", features: ["Real-time QoS watch", "Proactive capacity alerts", "Live event runbooks", "Edge cache playbooks"], icon_key: "shopping_cart" },
+      { uid: "ind_manufacturing", title: "Manufacturing & IoT", description: "Unify OT and IT telemetry to protect critical production lines.", stats: "60+ Industrial Orgs", features: ["Edge device health", "Predictive maintenance alerts", "Digital runbooks", "Compliance-ready incident logs"], icon_key: "factory" },
+      { uid: "ind_mlops", title: "MLOps", description: "Streamline machine learning workflows from training to deployment with automated model monitoring and drift detection.", stats: "200+ ML Teams", features: ["Model versioning & tracking", "Automated retraining pipelines", "Production model monitoring", "Drift detection alerts"], icon_key: "brain" },
+      { uid: "ind_llmops", title: "LLMOps", description: "Operationalize large language models with prompt engineering workflows, fine-tuning pipelines, and production monitoring.", stats: "150+ AI Teams", features: ["Prompt versioning & A/B testing", "Fine-tuning automation", "LLM performance monitoring", "Token usage optimization"], icon_key: "sparkles" },
     ],
     solutions: [
-      { uid: "sol_enterprise", title: "Enterprise Solutions", description: "Comprehensive HR platform for large organizations", badge: "Enterprise" },
-      { uid: "sol_midmarket", title: "Mid-Market Solutions", description: "Scalable HR tools for growing businesses", badge: "Popular" },
-      { uid: "sol_startup", title: "Startup Solutions", description: "Essential HR tools for emerging companies", badge: "Startup" },
+      { uid: "sol_enterprise", title: "Enterprise Platform Teams", description: "Support complex organizations with global fleets and layered compliance.", badge: "Enterprise" },
+      { uid: "sol_midmarket", title: "Growth-Stage Engineering", description: "Accelerate delivery while standardizing runbooks and automation.", badge: "Popular" },
+      { uid: "sol_startup", title: "Foundational DevOps", description: "Give lean teams guided operations and instant knowledge access.", badge: "Startup" },
     ],
     cta_section: {
-      title: "Don't See Your Industry?",
-      subtitle: "Our flexible platform adapts to any industry. Let's discuss your needs.",
-      cta_text: "Contact Our Experts",
+      title: "Have a Unique Stack?",
+      subtitle: "DevOpsCopilot integrates with any toolchain. Let’s map the right playbooks for your environment.",
+      cta_text: "Contact Our Engineers",
       cta_link: "/contact"
     }
   },
@@ -447,28 +385,82 @@ export const mockContentstackData = {
   ],
   pricing_page: {
     slug: "pricing",
-    header_title: "Simple, Transparent Pricing",
-    header_subtitle: "Choose the perfect plan for your organization.",
+    header_title: "Pricing Built For High-Velocity DevOps Teams",
+    header_subtitle: "Pick the copilot bundle that fits your reliability goals, and scale with transparent usage-based automations.",
     plans: [
-      { uid: "plan_starter", name: "Starter", price: "$5", period: "per employee/month", description: "Perfect for small teams getting started", badge: "", features: ["Core HR Management", "Employee Database", "Basic Reporting", "Mobile App Access", "Email Support", "Up to 50 employees"], cta: "Start Free Trial", popular: false },
-      { uid: "plan_professional", name: "Professional", price: "$12", period: "per employee/month", description: "Advanced features for growing businesses", badge: "Most Popular", features: ["Everything in Starter", "Performance Management", "Advanced Analytics", "Custom Workflows", "API Access", "Priority Support", "Up to 500 employees"], cta: "Start Free Trial", popular: true },
-      { uid: "plan_enterprise", name: "Enterprise", price: "Custom", period: "contact for pricing", description: "Complete solution for large organizations", badge: "Enterprise", features: ["Everything in Professional", "AI-Powered Insights", "Advanced Security", "Custom Integrations", "Dedicated Success Manager", "SLA Guarantee", "Unlimited employees"], cta: "Contact Sales", popular: false },
+      {
+        uid: "plan_launch",
+        slug: "launch",
+        name: "Launch",
+        price: "$20",
+        period: "per month",
+        description: "Best for startups building their first on-call program.",
+        badge: "",
+        features: [
+          "Up to 10 engineer seats & unlimited Stakeholder view",
+          "Incident Autopilot with chat-based runbooks",
+          "Pipeline Intelligence for 3 CI/CD workflows",
+          "Knowledge Graph syncing GitHub + Confluence nightly",
+          "Shared Slack / Teams channel support",
+        ],
+        cta: "Start Trial",
+        lead_type: "trial",
+        popular: false,
+      },
+      {
+        uid: "plan_scale",
+        slug: "scale",
+        name: "Scale",
+        price: "$60",
+        period: "per month",
+        description: "Most popular bundle for platform and SRE teams in growth-stage companies.",
+        badge: "Most Adopted",
+        features: [
+          "Unlimited engineer seats with granular RBAC",
+          "Automated post-incident timelines & Jira integration",
+          "Pipeline Intelligence across multi-region deploys",
+          "Policy-aware guardrails + compliance evidence vault",
+          "Dedicated solutions architect & 24/5 live support",
+        ],
+        cta: "Start Trial",
+        lead_type: "trial",
+        popular: true,
+      },
+      {
+        uid: "plan_enterprise",
+        slug: "enterprise",
+        name: "Enterprise",
+        price: "Custom",
+        period: "annual agreement",
+        description: "Tailor DevOpsCopilot to regulated, multi-cloud environments with custom SLAs.",
+        badge: "Enterprise",
+        features: [
+          "SOC 2 Type II, HIPAA, and regional data residency",
+          "Private model deployment & redaction controls",
+          "Automation workflow packs & runbook authoring services",
+          "On-site reliability workshop + quarterly game days",
+          "24/7 priority response with 15-min critical SLA",
+        ],
+        cta: "Talk To Sales",
+        lead_type: "contact",
+        popular: false,
+      },
     ],
     highlights: [
-      { uid: "hl_fast", icon_key: "zap", title: "Lightning Fast", description: "40% faster than traditional HR systems" },
-      { uid: "hl_security", icon_key: "shield", title: "Enterprise Security", description: "SOC2 Type II and GDPR compliant" },
-      { uid: "hl_global", icon_key: "globe", title: "Global Ready", description: "Multi-country payroll and compliance" },
-      { uid: "hl_roi", icon_key: "trending_up", title: "Proven ROI", description: "Average 300% ROI within first year" },
+      { uid: "hl_fast", icon_key: "zap", title: "Faster Resolution", description: "Average 37% MTTR reduction inside the first 60 days." },
+      { uid: "hl_security", icon_key: "shield", title: "Enterprise Guardrails", description: "Role-based automations, audit trails, and SOC 2 Type II controls." },
+      { uid: "hl_global", icon_key: "globe", title: "Toolchain Flexibility", description: "Connect PagerDuty, Datadog, Grafana, GitHub, ServiceNow, and more." },
+      { uid: "hl_roi", icon_key: "trending_up", title: "Proven ROI", description: "Customers reclaim 12+ engineer hours per week through automation." },
     ],
     faqs: [
-      { uid: "faq_trial", question: "What's included in the free trial?", answer: "Full access to all Professional features for 14 days. No credit card required." },
-      { uid: "faq_change_plans", question: "Can I change plans anytime?", answer: "Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately." },
-      { uid: "faq_setup_fee", question: "Is there a setup fee?", answer: "No setup fees for Starter and Professional plans. Enterprise plans include white-glove onboarding." },
-      { uid: "faq_payments", question: "What payment methods do you accept?", answer: "We accept all major credit cards, bank transfers, and can accommodate annual billing." },
+      { uid: "faq_trial", question: "What’s included in the trial?", answer: "You get the full Scale plan for 14 days, including integrations and sandbox labs. No credit card required." },
+      { uid: "faq_usage", question: "How is usage priced?", answer: "Plans include baseline automations. Additional chat sessions, pipelines, or integrations are billed in discounted usage blocks." },
+      { uid: "faq_security", question: "Can you meet our security requirements?", answer: "Yes. Enterprise plans include custom data residency, private model deployment, and support for HIPAA, PCI, and FedRAMP assessments." },
+      { uid: "faq_migration", question: "Do you help with rollout?", answer: "Absolutely. Scale and Enterprise plans include guided onboarding, playbook migration, and incident rehearsal support." },
     ],
     cta_section: {
-      title: "Ready to Get Started?",
-      subtitle: "Join companies already using TalentConnect360",
+      title: "Ready To Ship With Confidence?",
+      subtitle: "Pair AI copilots with your toolchain and see DevOpsCopilot accelerate your next incident response.",
       primary_text: "Start Free Trial",
       secondary_text: "Schedule Demo"
     }
@@ -476,7 +468,7 @@ export const mockContentstackData = {
   demo_page: {
     slug: "demo",
     header_title: "Schedule Your Demo",
-    header_subtitle: "See TalentConnect360 in action.",
+    header_subtitle: "See DevOpsCopilot in action.",
     form_config: {
       company_size_options: ["1-50 employees", "51-200 employees", "201-500 employees", "500+ employees"],
       industry_options: ["Technology", "Manufacturing", "Retail", "Healthcare", "Other"],
@@ -504,7 +496,7 @@ export const mockContentstackData = {
   },
   about_page: {
     slug: "company",
-    header_title: "About TalentConnect360",
+    header_title: "About DevOpsCopilot",
     header_subtitle: "Human-centric HR for the modern enterprise.",
     mission: "Empower organizations to deliver exceptional employee experiences with AI-powered HR.",
     values: [
@@ -513,67 +505,147 @@ export const mockContentstackData = {
       { title: "Integrity", description: "Do the right thing, especially when it's hard." }
     ],
     leadership: [
-      { name: "Alex Rivera", role: "CEO" },
-      { name: "Sam Lee", role: "CTO" },
-      { name: "Priya N.", role: "CPO" }
+      { name: "viswanatha reddy K", role: "CEO" },
+      { name: "Thejaswini", role: "CTO" },
+      { name: "husna reddy K", role: "CPO" }
     ]
   },
   resources_page: {
     slug: "resources",
     header_title: "Resources",
-    header_subtitle: "Guides, reports, and stories to help you get more from TalentConnect360.",
+    header_subtitle: "Guides, reports, and stories to help you get more from DevOpsCopilot.",
     categories: [
       {
         title: "Product Guides",
         items: [
-          { title: "Getting Started with TC360", link: "#" },
-          { title: "Performance Management Playbook", link: "#" }
+          { title: "Getting Started with DevOpsCopilot", link: "#" },
+          { title: "Incident Response Playbook", link: "#" },
+          { title: "CI/CD Pipeline Best Practices", link: "#" },
+          { title: "Onboarding New Engineers Guide", link: "#" }
         ]
       },
       {
         title: "Reports & Benchmarks",
         items: [
-          { title: "2025 HR Trends Report", link: "#" },
-          { title: "Manufacturing Workforce Benchmark", link: "#" }
+          { title: "2025 DevOps Trends Report", link: "#" },
+          { title: "MTTR Benchmark Study", link: "#" },
+          { title: "SRE Maturity Assessment", link: "#" },
+          { title: "AI in DevOps Survey Results", link: "#" }
         ]
       },
       {
         title: "Customer Stories",
         items: [
-          { title: "AlphaSoft Engineering", link: "/case-studies/alphasoft-tech" },
-          { title: "InduPro Plants", link: "/case-studies/indupro-manufacturing" }
+          { title: "Skyforge - Stabilizing Multi-Region SaaS", link: "/case-studies/skyforge-platform" },
+          { title: "Nova Finance - Scaling Compliance & Velocity", link: "/case-studies/nova-finance" }
         ]
       }
     ]
   },
   careers_page: {
     slug: "careers",
-    header_title: "Join TalentConnect360",
-    header_subtitle: "Help us build human-centric HR for the modern enterprise.",
-    intro: "We’re a distributed team building products that matter.",
+    header_title: "Join DevOpsCopilot",
+    header_subtitle: "Build AI-powered DevOps tools that help engineering teams ship faster and resolve incidents with confidence.",
+    intro: "We're a distributed team building products that matter. Join us in revolutionizing how DevOps teams work.",
     jobs: [
+      { slug: "senior-devops-engineer", title: "Senior DevOps Engineer", location: "Remote (Global)", department: "Engineering", type: "Full-time" },
+      { slug: "ai-ml-engineer", title: "AI/ML Engineer", location: "Remote (Global)", department: "Engineering", type: "Full-time" },
       { slug: "senior-frontend-engineer", title: "Senior Frontend Engineer", location: "Remote (Global)", department: "Engineering", type: "Full-time" },
+      { slug: "sre-platform-engineer", title: "SRE Platform Engineer", location: "Remote (Global)", department: "Engineering", type: "Full-time" },
       { slug: "product-designer", title: "Product Designer", location: "Remote (EMEA)", department: "Design", type: "Full-time" },
       { slug: "enterprise-ae", title: "Enterprise Account Executive", location: "USA (Remote)", department: "Sales", type: "Full-time" }
     ]
   },
   job_details: [
     {
+      slug: "senior-devops-engineer",
+      title: "Senior DevOps Engineer",
+      location: "Remote (Global)",
+      department: "Engineering",
+      type: "Full-time",
+      overview: "Build and scale the infrastructure that powers DevOpsCopilot's AI chatbot and automation platform. You'll work on Kubernetes, CI/CD pipelines, observability, and cloud-native architectures.",
+      responsibilities: [
+        "Design and implement scalable infrastructure on AWS/GCP/Azure",
+        "Build and maintain CI/CD pipelines for microservices",
+        "Implement observability and monitoring solutions (Prometheus, Grafana, Datadog)",
+        "Automate deployment and scaling processes",
+        "Collaborate with engineering teams on reliability and performance"
+      ],
+      requirements: [
+        "5+ years experience in DevOps/SRE roles",
+        "Strong experience with Kubernetes, Docker, and container orchestration",
+        "Proficiency in infrastructure-as-code (Terraform, CloudFormation)",
+        "Experience with CI/CD tools (GitHub Actions, GitLab CI, Jenkins)",
+        "Knowledge of monitoring and observability tools",
+        "Strong scripting skills (Python, Bash, Go)"
+      ]
+    },
+    {
+      slug: "ai-ml-engineer",
+      title: "AI/ML Engineer",
+      location: "Remote (Global)",
+      department: "Engineering",
+      type: "Full-time",
+      overview: "Develop AI models and systems that power our DevOps chatbot, enabling intelligent troubleshooting, incident response, and knowledge synthesis from runbooks and documentation.",
+      responsibilities: [
+        "Build and fine-tune LLMs for DevOps-specific use cases",
+        "Develop RAG (Retrieval-Augmented Generation) systems for technical documentation",
+        "Create embeddings and vector search for code, logs, and runbooks",
+        "Integrate AI models with observability and incident management tools",
+        "Optimize model performance and reduce latency for real-time chat"
+      ],
+      requirements: [
+        "3+ years experience in ML/AI engineering",
+        "Experience with LLMs (GPT, Claude, Llama) and fine-tuning",
+        "Strong Python skills and ML frameworks (PyTorch, TensorFlow, Hugging Face)",
+        "Experience with vector databases and RAG systems",
+        "Understanding of DevOps tools and workflows is a plus",
+        "MS/PhD in Computer Science, ML, or related field preferred"
+      ]
+    },
+    {
       slug: "senior-frontend-engineer",
       title: "Senior Frontend Engineer",
       location: "Remote (Global)",
       department: "Engineering",
       type: "Full-time",
-      overview: "Build world-class HR experiences using React, TypeScript, and modern tooling.",
+      overview: "Build world-class user interfaces for DevOpsCopilot's dashboard, chat interface, and automation workflows using React, TypeScript, and modern tooling.",
       responsibilities: [
-        "Own complex UI flows and component systems",
+        "Own complex UI flows including chat interfaces, dashboards, and automation builders",
+        "Build reusable component libraries and design systems",
         "Collaborate with product, design, and backend teams",
-        "Drive performance and accessibility improvements"
+        "Drive performance and accessibility improvements",
+        "Implement real-time features for chat and live observability data"
       ],
       requirements: [
         "5+ years experience in React + TypeScript",
-        "Deep understanding of web performance and a11y",
-        "Experience with design systems or UI libraries"
+        "Deep understanding of web performance and accessibility",
+        "Experience with design systems or UI libraries (shadcn/ui, Material-UI)",
+        "Familiarity with real-time technologies (WebSockets, SSE)",
+        "Experience with state management (Zustand, Redux, React Query)"
+      ]
+    },
+    {
+      slug: "sre-platform-engineer",
+      title: "SRE Platform Engineer",
+      location: "Remote (Global)",
+      department: "Engineering",
+      type: "Full-time",
+      overview: "Design and maintain the platform infrastructure that ensures DevOpsCopilot's reliability, scalability, and performance. You'll work on incident response automation, service reliability, and platform tooling.",
+      responsibilities: [
+        "Design and implement SLO/SLI frameworks and error budgets",
+        "Build automated incident response and remediation systems",
+        "Develop platform tooling for service reliability and observability",
+        "Participate in on-call rotations and incident postmortems",
+        "Collaborate with product teams on reliability requirements"
+      ],
+      requirements: [
+        "4+ years experience in SRE or platform engineering",
+        "Strong experience with observability tools (Datadog, New Relic, Grafana)",
+        "Experience with incident management (PagerDuty, Opsgenie)",
+        "Proficiency in Go, Python, or similar languages",
+        "Understanding of distributed systems and microservices",
+        "Experience with chaos engineering and reliability testing"
       ]
     },
     {
@@ -582,16 +654,20 @@ export const mockContentstackData = {
       location: "Remote (EMEA)",
       department: "Design",
       type: "Full-time",
-      overview: "Craft intuitive, delightful HR workflows and design systems.",
+      overview: "Design intuitive, powerful interfaces for DevOps teams. You'll work on chat experiences, automation builders, dashboards, and learning paths that help engineers work more effectively.",
       responsibilities: [
         "Own end‑to‑end product areas from research to polish",
+        "Design chat interfaces, automation workflows, and dashboard experiences",
         "Partner with PM and Eng to ship iteratively",
-        "Evolve our design system"
+        "Conduct user research with DevOps and SRE teams",
+        "Evolve our design system and component library"
       ],
       requirements: [
         "4+ years in product design",
         "Strong UX and systems thinking",
-        "Great communication and prototyping skills"
+        "Experience designing developer tools or technical products",
+        "Great communication and prototyping skills",
+        "Portfolio demonstrating complex technical interfaces"
       ]
     },
     {
@@ -600,62 +676,70 @@ export const mockContentstackData = {
       location: "USA (Remote)",
       department: "Sales",
       type: "Full-time",
-      overview: "Own the full enterprise sales cycle across strategic accounts.",
+      overview: "Own the full enterprise sales cycle for DevOpsCopilot, working with platform engineering, SRE, and DevOps teams at large organizations to transform their incident response and automation capabilities.",
       responsibilities: [
-        "Prospect, demo, and close enterprise customers",
-        "Manage complex buying committees",
-        "Partner with CS for smooth handoffs"
+        "Prospect, demo, and close enterprise customers ($100K+ ARR)",
+        "Manage complex buying committees including engineering, security, and procurement",
+        "Partner with solutions architects and customer success for smooth handoffs",
+        "Build relationships with DevOps leaders and platform engineering teams",
+        "Navigate technical evaluations and security reviews"
       ],
       requirements: [
         "5+ years enterprise SaaS AE experience",
-        "Proven quota attainment",
-        "HCM/HR tech domain a plus"
+        "Proven quota attainment ($1M+ ARR)",
+        "Experience selling to engineering/DevOps teams preferred",
+        "Technical background or ability to understand DevOps tools and workflows",
+        "Experience with developer tools, observability, or infrastructure software"
       ]
     }
   ],
   product_details: [
     {
-      slug: "core-hr",
-      title: "Core HR",
-      overview: "Modernize employee records, attendance, leave, and document management in one place.",
-      highlights: ["Unified employee profile", "Policy-driven leave", "Compliant records"],
+      slug: "incident-autopilot",
+      title: "Incident Autopilot",
+      overview: "Guide on-call engineers with end-to-end triage, remediation, and documentation. Reduce MTTR and eliminate alert fatigue with AI-powered incident response.",
+      highlights: ["Unified alert context", "AI mitigation suggestions", "Chat-triggered automations", "Instant post-incident reports"],
       capabilities: [
-        { name: "Employee Database", desc: "Single source of truth for employee data with audit trails." },
-        { name: "Attendance", desc: "Flexible rules, geo-fencing, and shift-aware policies." },
-        { name: "Documents", desc: "Secure storage with e-signature support." }
+        { name: "Alert Integration", desc: "Unified context from PagerDuty, Grafana, Datadog, and custom monitoring tools." },
+        { name: "AI Triage", desc: "Intelligent root cause analysis with suggested remediation steps based on historical incidents." },
+        { name: "Automated Response", desc: "Execute rollbacks, scale resources, and trigger runbooks directly from chat." },
+        { name: "Post-Incident Reports", desc: "Auto-generated timelines, impact analysis, and action items for postmortems." }
       ]
     },
     {
-      slug: "talent-acquisition",
-      title: "Talent Acquisition",
-      overview: "Find, engage, and hire faster with AI-assisted recruiting.",
-      highlights: ["AI sourcing", "Automated scheduling", "Offer workflows"],
+      slug: "pipeline-intelligence",
+      title: "Pipeline Intelligence",
+      overview: "Explain failing builds, guard your releases, and keep shipping momentum high. Make CI/CD failures understandable and prevent bad deployments.",
+      highlights: ["Build log summarization", "Policy enforcement gates", "Rollback & hotfix flows", "Deployment health dashboards"],
       capabilities: [
-        { name: "AI Sourcing", desc: "Intelligent matching and outreach to top candidates." },
-        { name: "Scheduling", desc: "Coordinate interviews across time zones in a click." },
-        { name: "Offers", desc: "Configurable approvals and templates." }
+        { name: "Build Analysis", desc: "AI-powered log parsing to identify root causes of CI/CD failures in seconds." },
+        { name: "Release Gates", desc: "Automated policy checks for security, performance, and compliance before deployment." },
+        { name: "Rollback Automation", desc: "One-click rollbacks and hotfix workflows triggered from chat or dashboards." },
+        { name: "Pipeline Health", desc: "Real-time visibility into deployment success rates, build times, and failure patterns." }
       ]
     },
     {
-      slug: "performance-management",
-      title: "Performance Management",
-      overview: "Set goals, run reviews, and foster continuous growth.",
-      highlights: ["OKRs", "360 feedback", "Growth plans"],
+      slug: "knowledge-graph",
+      title: "Knowledge Graph",
+      overview: "Make runbooks, dashboards, and architecture diagrams instantly discoverable in chat. Keep your team's institutional knowledge accessible and up-to-date.",
+      highlights: ["Source-aware answers", "Auto-updated runbooks", "Contextual recommendations", "Version-aware responses"],
       capabilities: [
-        { name: "OKRs", desc: "Align org goals to team and individual outcomes." },
-        { name: "360 Reviews", desc: "Holistic, bias-aware feedback." },
-        { name: "Development", desc: "Personalized learning paths and coaching." }
+        { name: "Knowledge Discovery", desc: "Semantic search across runbooks, wikis, code comments, and documentation." },
+        { name: "Auto-Sync", desc: "Automatically update knowledge base when runbooks or architecture changes in Git." },
+        { name: "Contextual Answers", desc: "AI responses that reference specific documentation, dashboards, and code examples." },
+        { name: "Version Control", desc: "Track knowledge changes and provide version-aware answers based on deployment state." }
       ]
     },
     {
-      slug: "analytics-insights",
-      title: "Analytics & Insights",
-      overview: "Make data-driven HR decisions with real-time dashboards and predictions.",
-      highlights: ["Real-time dashboards", "Predictive", "Custom reports"],
+      slug: "learning-hub",
+      title: "Learning Hub",
+      overview: "Blend self-paced labs and coaching with real incident scenarios. Onboard engineers faster and build DevOps expertise with hands-on practice.",
+      highlights: ["Role-based learning paths", "Hands-on sandboxes", "Skills analytics", "Certification prep"],
       capabilities: [
-        { name: "Dashboards", desc: "Track KPIs across the employee lifecycle." },
-        { name: "Predictive", desc: "Spot risks in attrition, hiring, and performance." },
-        { name: "Reports", desc: "Exportable, scheduled reporting with filters." }
+        { name: "Learning Paths", desc: "Personalized curricula for SREs, platform engineers, and DevOps practitioners." },
+        { name: "Sandbox Environments", desc: "Isolated labs for practicing incident response, pipeline debugging, and infrastructure changes." },
+        { name: "Skills Tracking", desc: "Analytics on learning progress, knowledge gaps, and certification readiness." },
+        { name: "Real Scenarios", desc: "Practice with anonymized real incidents and build muscle memory for production situations." }
       ]
     }
   ]

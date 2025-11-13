@@ -23,19 +23,81 @@ const Footer = () => {
       <div className="container py-10 grid md:grid-cols-4 gap-8">
         <div>
           <div className="flex items-center gap-2 mb-4">
-            <div className="h-8 w-8 rounded bg-gradient-hero flex items-center justify-center">
-              <span className="text-white font-bold text-sm">T</span>
+            <div className="relative h-8 w-8 flex items-center justify-center">
+              <svg 
+                viewBox="0 0 32 32" 
+                className="h-8 w-8"
+                fill="none" 
+                xmlns="http://www.w3.org/2000/svg"
+                style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))' }}
+              >
+                <defs>
+                  <linearGradient id="footerLogoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#3b82f6" />
+                    <stop offset="50%" stopColor="#8b5cf6" />
+                    <stop offset="100%" stopColor="#ec4899" />
+                  </linearGradient>
+                  <linearGradient id="footerLogoGradientDark" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#60a5fa" />
+                    <stop offset="50%" stopColor="#a78bfa" />
+                    <stop offset="100%" stopColor="#f472b6" />
+                  </linearGradient>
+                  <filter id="footerLogoGlow">
+                    <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+                    <feMerge>
+                      <feMergeNode in="coloredBlur"/>
+                      <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                  </filter>
+                </defs>
+                <circle cx="16" cy="16" r="15" fill="url(#footerLogoGradient)" />
+                <circle cx="16" cy="16" r="15" fill="url(#footerLogoGradientDark)" className="hidden dark:block" />
+                <circle cx="16" cy="16" r="15" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="0.5" />
+                
+                {/* Automation: Gear symbol (top) - represents automation/workflow */}
+                <circle cx="16" cy="9" r="2.5" fill="white" />
+                <rect x="15.5" y="7" width="1" height="4" fill="white" />
+                <rect x="15.5" y="9" width="1" height="4" fill="white" />
+                <rect x="13.5" y="8.5" width="1.5" height="1.5" fill="white" />
+                <rect x="17" y="8.5" width="1.5" height="1.5" fill="white" />
+                
+                {/* MLOps: Neural network layers (left) - represents ML/AI models */}
+                <circle cx="7" cy="16" r="1.8" fill="white" />
+                <circle cx="10" cy="12" r="1.3" fill="white" />
+                <circle cx="10" cy="16" r="1.3" fill="white" />
+                <circle cx="10" cy="20" r="1.3" fill="white" />
+                <path d="M8.5 12 L8 16" stroke="white" strokeWidth="1" />
+                <path d="M8.5 16 L8 16" stroke="white" strokeWidth="1" />
+                <path d="M8.5 20 L8 16" stroke="white" strokeWidth="1" />
+                
+                {/* LLMOps: Text/language processing (right) - represents LLM/text AI */}
+                <rect x="22" y="13.5" width="2.5" height="0.8" rx="0.4" fill="white" />
+                <rect x="22" y="15.5" width="3.5" height="0.8" rx="0.4" fill="white" />
+                <rect x="22" y="17.5" width="2.5" height="0.8" rx="0.4" fill="white" />
+                <circle cx="25.5" cy="19.5" r="0.8" fill="#fbbf24" className="dark:fill-yellow-400" />
+                
+                {/* Automation: Continuous loop arrow (bottom) - represents CI/CD pipeline */}
+                <path d="M12 22 Q16 20, 20 22" stroke="white" strokeWidth="2" fill="none" strokeLinecap="round" />
+                <path d="M19 21.2 L20 22 L19 22.8" stroke="white" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                
+                {/* Central AI core - represents intelligent automation with glow */}
+                <circle cx="16" cy="16" r="3" fill="#fbbf24" className="dark:fill-yellow-400" filter="url(#footerLogoGlow)" />
+                <circle cx="16" cy="16" r="2" fill="white" />
+                <circle cx="16" cy="16" r="1" fill="#fbbf24" className="dark:fill-yellow-400" />
+              </svg>
             </div>
-            <span className="font-bold text-xl text-foreground">TalentConnect360</span>
+            <span className="font-bold text-xl text-foreground bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+              DevOpsCopilot
+            </span>
           </div>
           <p className="text-sm text-muted-foreground">
-            AI-powered HR platform to connect, engage, and grow your talent.
+            AI-powered DevOps assistant to troubleshoot incidents, onboard engineers, and accelerate your platform team.
           </p>
           <div className="flex gap-3 mt-4 text-muted-foreground">
-            <a href="#" aria-label="Facebook" className="hover:text-primary"><Facebook className="h-5 w-5" /></a>
-            <a href="#" aria-label="Twitter" className="hover:text-primary"><Twitter className="h-5 w-5" /></a>
-            <a href="#" aria-label="LinkedIn" className="hover:text-primary"><Linkedin className="h-5 w-5" /></a>
-            <a href="#" aria-label="YouTube" className="hover:text-primary"><Youtube className="h-5 w-5" /></a>
+            <a href="https://www.facebook.com" target="_blank" rel="noreferrer" aria-label="Facebook" className="hover:text-primary"><Facebook className="h-5 w-5" /></a>
+            <a href="https://twitter.com" target="_blank" rel="noreferrer" aria-label="Twitter" className="hover:text-primary"><Twitter className="h-5 w-5" /></a>
+            <a href="https://www.linkedin.com" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="hover:text-primary"><Linkedin className="h-5 w-5" /></a>
+            <a href="https://www.youtube.com" target="_blank" rel="noreferrer" aria-label="YouTube" className="hover:text-primary"><Youtube className="h-5 w-5" /></a>
           </div>
           <div className="mt-6">
             <h4 className="font-semibold mb-2">Subscribe to our newsletter</h4>
@@ -62,10 +124,10 @@ const Footer = () => {
         <div>
           <h4 className="font-semibold mb-3">Products</h4>
           <ul className="space-y-2 text-sm text-muted-foreground">
-            <li><a href="/products#core-hr" className="hover:text-primary">Core HR</a></li>
-            <li><a href="/products#talent" className="hover:text-primary">Talent Acquisition</a></li>
-            <li><a href="/products#performance" className="hover:text-primary">Performance</a></li>
-            <li><a href="/products#analytics" className="hover:text-primary">Analytics</a></li>
+            <li><a href="/products#incident-autopilot" className="hover:text-primary">Incident Autopilot</a></li>
+            <li><a href="/products#pipeline-intelligence" className="hover:text-primary">Pipeline Intelligence</a></li>
+            <li><a href="/products#knowledge-graph" className="hover:text-primary">Knowledge Graph</a></li>
+            <li><a href="/products#learning-hub" className="hover:text-primary">Learning Hub</a></li>
           </ul>
         </div>
 
@@ -73,6 +135,8 @@ const Footer = () => {
           <h4 className="font-semibold mb-3">Company</h4>
           <ul className="space-y-2 text-sm text-muted-foreground">
             <li><a href="/company" className="hover:text-primary">About</a></li>
+            <li><a href="/playbooks" className="hover:text-primary">DevOps Solutions</a></li>
+            <li><a href="/careers" className="hover:text-primary">Careers</a></li>
             <li><a href="/resources" className="hover:text-primary">Resources</a></li>
             <li><a href="/contact" className="hover:text-primary">Contact</a></li>
             <li><a href="/pricing" className="hover:text-primary">Pricing</a></li>
@@ -82,20 +146,20 @@ const Footer = () => {
         <div>
           <h4 className="font-semibold mb-3">Legal</h4>
           <ul className="space-y-2 text-sm text-muted-foreground">
-            <li><a href="#" className="hover:text-primary">Terms of Service</a></li>
-            <li><a href="#" className="hover:text-primary">Privacy Policy</a></li>
-            <li><a href="#" className="hover:text-primary">Security</a></li>
-            <li><a href="#" className="hover:text-primary">Status</a></li>
+            <li><a href="/terms" className="hover:text-primary">Terms of Service</a></li>
+            <li><a href="/privacy" className="hover:text-primary">Privacy Policy</a></li>
+            <li><a href="/security" className="hover:text-primary">Security</a></li>
+            <li><a href="/status" className="hover:text-primary">Status</a></li>
           </ul>
         </div>
       </div>
       <div className="border-t border-border">
         <div className="container py-6 text-xs text-muted-foreground flex flex-col md:flex-row gap-2 md:gap-0 md:items-center md:justify-between">
-          <div>© {new Date().getFullYear()} TalentConnect360. All rights reserved.</div>
+          <div>© {new Date().getFullYear()} DevOpsCopilot. All rights reserved.</div>
           <div className="flex gap-4">
-            <a href="#" className="hover:text-primary">Cookies</a>
-            <a href="#" className="hover:text-primary">Accessibility</a>
-            <a href="#" className="hover:text-primary">Sitemap</a>
+            <a href="/cookies" className="hover:text-primary">Cookies</a>
+            <a href="/accessibility" className="hover:text-primary">Accessibility</a>
+            <a href="/sitemap" className="hover:text-primary">Sitemap</a>
           </div>
         </div>
       </div>

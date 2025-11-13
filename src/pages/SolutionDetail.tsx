@@ -13,7 +13,7 @@ const SolutionDetail = () => {
         <div className="container py-20">
           <h1 className="text-3xl font-bold">Solution Not Found</h1>
           <p className="text-muted-foreground mt-2">We couldn't find this solution.</p>
-          <Link to="/industries" className="text-primary">Back to Industries</Link>
+          <Link to="/playbooks" className="text-primary">Back to DevOps Solutions</Link>
         </div>
       </div>
     );
@@ -21,7 +21,7 @@ const SolutionDetail = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Seo title={`${data.title} — TalentConnect360`} description={data.overview} />
+      <Seo title={`${data.title} — DevOpsCopilot`} description={data.overview} />
       <div className="container py-16 space-y-10">
         <div>
           <h1 className="text-4xl font-bold text-foreground mb-3">{data.title}</h1>
@@ -42,7 +42,16 @@ const SolutionDetail = () => {
             <h3 className="font-semibold mb-3">Get started</h3>
             <div className="space-y-2">
               <a href="/pricing" className="block px-4 py-2 rounded-md border border-border hover:bg-accent/10">See pricing</a>
-              <a href={`/demo`} className="block px-4 py-2 rounded-md border border-border hover:bg-accent/10">Schedule a demo</a>
+              <button 
+                onClick={(e) => {
+                  e.preventDefault();
+                  const ev = new CustomEvent('tc360:demo-chat', { detail: { open: true } });
+                  window.dispatchEvent(ev);
+                }}
+                className="w-full text-left px-4 py-2 rounded-md border border-border hover:bg-accent/10"
+              >
+                Schedule a demo
+              </button>
             </div>
           </div>
         </div>

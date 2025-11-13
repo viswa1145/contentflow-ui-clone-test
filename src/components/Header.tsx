@@ -6,7 +6,6 @@ import { useQuery } from "@tanstack/react-query";
 import ThemeToggle from "@/components/ThemeToggle";
 import { usePersonalization } from "@/hooks/usePersonalization";
 import { useLocation, useNavigate } from "react-router-dom";
-import appLogo from "@/assets/logo.png";
 
 interface DropdownProps {
   item: NavigationItem;
@@ -137,6 +136,14 @@ export const Header = () => {
   };
 
   const navigateWithHash = (href: string) => {
+    // Check if this is a demo link - open chatbot instead
+    if (href === '/demo' || href.startsWith('/demo')) {
+      const ev = new CustomEvent('tc360:demo-chat', { detail: { open: true } });
+      window.dispatchEvent(ev);
+      handleLinkClick();
+      return;
+    }
+    
     const [pathname, hash] = href.split('#');
     const target = hrefWithSearch(pathname || '/');
     navigate(target, { replace: false });
@@ -157,8 +164,74 @@ export const Header = () => {
         <div className="flex items-center space-x-2">
           <div className="flex items-center space-x-2">
             <a href={hrefWithSearch('/')} onClick={handleLinkClick} className="flex items-center space-x-2">
-              <img src={appLogo} alt="TalentConnect360 logo" className="h-8 w-8 rounded object-cover" />
-              <span className="font-bold text-xl text-foreground">TalentConnect360</span>
+              <div className="relative h-8 w-8 flex items-center justify-center">
+                <svg 
+                  viewBox="0 0 32 32" 
+                  className="h-8 w-8"
+                  fill="none" 
+                  xmlns="http://www.w3.org/2000/svg"
+                  style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))' }}
+                >
+                  <defs>
+                    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#3b82f6" />
+                      <stop offset="50%" stopColor="#8b5cf6" />
+                      <stop offset="100%" stopColor="#ec4899" />
+                    </linearGradient>
+                    <linearGradient id="logoGradientDark" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#60a5fa" />
+                      <stop offset="50%" stopColor="#a78bfa" />
+                      <stop offset="100%" stopColor="#f472b6" />
+                    </linearGradient>
+                    <filter id="logoGlow">
+                      <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+                      <feMerge>
+                        <feMergeNode in="coloredBlur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                      </feMerge>
+                    </filter>
+                  </defs>
+                  
+                  {/* Circular background - brighter in dark mode */}
+                  <circle cx="16" cy="16" r="15" fill="url(#logoGradient)" />
+                  <circle cx="16" cy="16" r="15" fill="url(#logoGradientDark)" className="hidden dark:block" />
+                  <circle cx="16" cy="16" r="15" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="0.5" />
+                  
+                  {/* Automation: Gear symbol (top) - represents automation/workflow */}
+                  <circle cx="16" cy="9" r="2.5" fill="white" />
+                  <rect x="15.5" y="7" width="1" height="4" fill="white" />
+                  <rect x="15.5" y="9" width="1" height="4" fill="white" />
+                  <rect x="13.5" y="8.5" width="1.5" height="1.5" fill="white" />
+                  <rect x="17" y="8.5" width="1.5" height="1.5" fill="white" />
+                  
+                  {/* MLOps: Neural network layers (left) - represents ML/AI models */}
+                  <circle cx="7" cy="16" r="1.8" fill="white" />
+                  <circle cx="10" cy="12" r="1.3" fill="white" />
+                  <circle cx="10" cy="16" r="1.3" fill="white" />
+                  <circle cx="10" cy="20" r="1.3" fill="white" />
+                  <path d="M8.5 12 L8 16" stroke="white" strokeWidth="1" />
+                  <path d="M8.5 16 L8 16" stroke="white" strokeWidth="1" />
+                  <path d="M8.5 20 L8 16" stroke="white" strokeWidth="1" />
+                  
+                  {/* LLMOps: Text/language processing (right) - represents LLM/text AI */}
+                  <rect x="22" y="13.5" width="2.5" height="0.8" rx="0.4" fill="white" />
+                  <rect x="22" y="15.5" width="3.5" height="0.8" rx="0.4" fill="white" />
+                  <rect x="22" y="17.5" width="2.5" height="0.8" rx="0.4" fill="white" />
+                  <circle cx="25.5" cy="19.5" r="0.8" fill="#fbbf24" className="dark:fill-yellow-400" />
+                  
+                  {/* Automation: Continuous loop arrow (bottom) - represents CI/CD pipeline */}
+                  <path d="M12 22 Q16 20, 20 22" stroke="white" strokeWidth="2" fill="none" strokeLinecap="round" />
+                  <path d="M19 21.2 L20 22 L19 22.8" stroke="white" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                  
+                  {/* Central AI core - represents intelligent automation with glow */}
+                  <circle cx="16" cy="16" r="3" fill="#fbbf24" className="dark:fill-yellow-400" filter="url(#logoGlow)" />
+                  <circle cx="16" cy="16" r="2" fill="white" />
+                  <circle cx="16" cy="16" r="1" fill="#fbbf24" className="dark:fill-yellow-400" />
+                </svg>
+              </div>
+              <span className="font-bold text-xl text-foreground bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+                DevOpsCopilot
+              </span>
             </a>
           </div>
         </div>

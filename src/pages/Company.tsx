@@ -1,16 +1,18 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
 import { fetchContentstackData } from "@/data/contentstack";
 import Seo from "@/components/Seo";
+import { ArrowRight } from "lucide-react";
 
 const Company = () => {
   const { data } = useQuery({ queryKey: ["about_page"], queryFn: () => fetchContentstackData("about_page") });
   return (
     <div className="min-h-screen bg-background">
-      <Seo title={(data?.header_title || "About TalentConnect360") + " — TalentConnect360"} description={data?.header_subtitle} />
+      <Seo title={(data?.header_title || "About DevOpsCopilot") + " — DevOpsCopilot"} description={data?.header_subtitle} />
       <div className="container py-20 space-y-12">
         <div className="text-center">
-          <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-4">{data?.header_title || 'About TalentConnect360'}</h1>
+          <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-4">{data?.header_title || 'About DevOpsCopilot'}</h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">{data?.header_subtitle || 'Building the most human-centric HR platform to connect, engage, and grow talent worldwide.'}</p>
         </div>
 
@@ -68,8 +70,16 @@ const Company = () => {
             <CardHeader>
               <CardTitle>Careers</CardTitle>
             </CardHeader>
-            <CardContent className="text-muted-foreground">
-              We're hiring across functions. Join us to build the future of work.
+            <CardContent className="space-y-4">
+              <p className="text-muted-foreground">
+                We're hiring across functions. Join us to build the future of DevOps automation and AI-powered incident response.
+              </p>
+              <Button asChild className="w-full">
+                <a href="/careers">
+                  View Open Positions
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </a>
+              </Button>
             </CardContent>
           </Card>
         </div>

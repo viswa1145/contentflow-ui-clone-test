@@ -16,7 +16,7 @@ import { usePersonalization } from "@/hooks/usePersonalization";
 const staticPages = [
   { label: "Home", href: "/" },
   { label: "Products", href: "/products" },
-  { label: "Industries", href: "/industries" },
+  { label: "DevOps Solutions", href: "/playbooks" },
   { label: "Pricing", href: "/pricing" },
   { label: "Demo", href: "/demo" },
   { label: "Company", href: "/company" },
@@ -87,7 +87,13 @@ const CommandPalette = () => {
               key={p.href}
               onSelect={() => {
                 setOpen(false);
-                navigate(hrefWithSearch(p.href));
+                // Open chatbot for demo links instead of navigating
+                if (p.href === '/demo' || p.href.startsWith('/demo')) {
+                  const ev = new CustomEvent('tc360:demo-chat', { detail: { open: true } });
+                  window.dispatchEvent(ev);
+                } else {
+                  navigate(hrefWithSearch(p.href));
+                }
               }}
             >
               {p.label}

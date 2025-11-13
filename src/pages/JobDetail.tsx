@@ -19,7 +19,7 @@ const JobDetail = () => {
   }
   return (
     <div className="min-h-screen bg-background">
-      <Seo title={`${data.title} — Careers at TalentConnect360`} description={data.overview} />
+      <Seo title={`${data.title} — Careers at DevOpsCopilot`} description={data.overview} />
       <div className="container py-16 space-y-10">
         <div className="flex items-start justify-between gap-4">
           <div>
@@ -27,9 +27,9 @@ const JobDetail = () => {
             <div className="text-sm text-muted-foreground">{data.location} • {data.type} • {data.department}</div>
           </div>
           <div className="flex gap-2">
-            <Button onClick={() => { const ev = new CustomEvent('tc360:lead', { detail: { type: 'contact' } }); window.dispatchEvent(ev); }}>Apply</Button>
+            <Button onClick={() => { const ev = new CustomEvent('tc360:lead', { detail: { type: 'job', job: { slug: data.slug, title: data.title } } }); window.dispatchEvent(ev); }}>Apply</Button>
             <Button variant="outline" asChild>
-              <a href={`https://www.linkedin.com/jobs/search/?keywords=${encodeURIComponent(data.title + ' TalentConnect360')}`} target="_blank" rel="noreferrer">Apply via LinkedIn</a>
+              <a href={`https://www.linkedin.com/jobs/search/?keywords=${encodeURIComponent(data.title + ' DevOpsCopilot')}`} target="_blank" rel="noreferrer">Apply via LinkedIn</a>
             </Button>
           </div>
         </div>
@@ -55,9 +55,9 @@ const JobDetail = () => {
           <div className="p-6 border border-border rounded-xl">
             <h3 className="font-semibold mb-3">Ready to apply?</h3>
             <div className="space-y-2">
-              <Button className="w-full" onClick={() => { const ev = new CustomEvent('tc360:lead', { detail: { type: 'contact' } }); window.dispatchEvent(ev); }}>Apply</Button>
+              <Button className="w-full" onClick={() => { const ev = new CustomEvent('tc360:lead', { detail: { type: 'job', job: { slug: data.slug, title: data.title } } }); window.dispatchEvent(ev); }}>Apply Now</Button>
               <Button className="w-full" variant="outline" asChild>
-                <a href={`https://www.linkedin.com/jobs/search/?keywords=${encodeURIComponent(data.title + ' TalentConnect360')}`} target="_blank" rel="noreferrer">Apply via LinkedIn</a>
+                <a href={`https://www.linkedin.com/jobs/search/?keywords=${encodeURIComponent(data.title + ' DevOpsCopilot')}`} target="_blank" rel="noreferrer">Apply via LinkedIn</a>
               </Button>
               <a href="/careers" className="text-sm text-primary inline-block mt-2">Back to Careers</a>
             </div>

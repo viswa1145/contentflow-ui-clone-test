@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* TalentConnect360-inspired color palette */
+/* DevOpsCopilot-inspired color palette */
 
 /* Animated gradient utilities */
 @keyframes tc360-gradient-shift {
@@ -27,7 +27,7 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* TalentConnect360-inspired color palette */
+    /* DevOpsCopilot-inspired color palette */
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
 
@@ -238,6 +238,47 @@ All colors MUST be HSL.
 @keyframes tc360-confetti-fall {
   0% { transform: translateY(-10vh) rotate(0deg); }
   100% { transform: translateY(110vh) rotate(360deg); }
+}
+
+@keyframes shine {
+  0% { transform: translateX(-100%) translateY(0); }
+  100% { transform: translateX(100%) translateY(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) translateX(0px); opacity: 0.7; }
+  50% { transform: translateY(-20px) translateX(10px); opacity: 1; }
+}
+
+.animate-shine {
+  animation: shine 3s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* Logo enhancements for dark mode */
+.dark svg {
+  filter: drop-shadow(0 0 8px rgba(96, 165, 250, 0.4));
+}
+
+.dark svg circle:first-of-type {
+  filter: brightness(1.15) saturate(1.2);
+}
+
+.dark svg circle[fill="white"],
+.dark svg rect[fill="white"] {
+  filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.6));
+}
+
+.dark svg path[stroke="white"] {
+  filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.4));
+}
+
+.dark svg circle[fill="#fbbf24"],
+.dark svg circle[fill="rgb(251, 191, 36)"] {
+  filter: brightness(1.4) drop-shadow(0 0 4px rgba(251, 191, 36, 0.7));
 }
 
 @layer base {

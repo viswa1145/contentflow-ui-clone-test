@@ -85,8 +85,8 @@ export const fetchContentstackData = async (contentType: string, filters?: { ind
     });
   }
   if (IS_MOCK_DATA_MODE) {
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 100));
+    // Simulate minimal API delay for better UX
+    await new Promise(resolve => setTimeout(resolve, 50));
     switch (contentType) {
       case 'announcement_banner': {
         let base: any = (mockContentstackData as any).announcement_banner;
@@ -116,8 +116,14 @@ export const fetchContentstackData = async (contentType: string, filters?: { ind
         return mockContentstackData.products_page;
       case 'industries_page':
         return mockContentstackData.industries_page;
-      case 'pricing_page':
-        return mockContentstackData.pricing_page;
+      case 'pricing_page': {
+        const pricing = mockContentstackData.pricing_page;
+        if (!pricing) {
+          console.error("[TC360] pricing_page is undefined in mockContentstackData");
+          throw new Error("Pricing page data not found in mock data");
+        }
+        return pricing;
+      }
       case 'demo_page':
         return mockContentstackData.demo_page;
       case 'about_page':
@@ -310,54 +316,120 @@ export const fetchContentstackData = async (contentType: string, filters?: { ind
     case 'demo_page':
     case 'about_page':
     case 'resources_page': {
-      const result = await Stack.ContentType(contentType).Query().toJSON().find();
-      const unwrapped = unwrap(result);
-      const value = Array.isArray(unwrapped) ? unwrapped[0] : unwrapped;
-      if (!value) {
+      try {
+        const result = await Stack.ContentType(contentType).Query().toJSON().find();
+        const unwrapped = unwrap(result);
+        const value = Array.isArray(unwrapped) ? unwrapped[0] : unwrapped;
+        if (!value) {
+          throw new Error('No data returned from Contentstack');
+        }
+        // Normalize field differences per content type
+        if (contentType === 'products_page') {
+          const page: any = { ...value };
+          // Some stacks store the title under `title` instead of `header_title`
+          if (!page.header_title && page.title) page.header_title = page.title;
+          if (page.cta_section) {
+            if (page.cta_section.primary_cta_link) page.cta_section.primary_cta_link = normalizeHref(page.cta_section.primary_cta_link);
+            if (page.cta_section.secondary_cta_link) page.cta_section.secondary_cta_link = normalizeHref(page.cta_section.secondary_cta_link);
+          }
+          if (Array.isArray(page.products)) {
+            page.products = page.products.map((p: any) => {
+              const next = { ...p };
+              const link: string | undefined = next.learn_more_link;
+              const looksHttp = typeof link === 'string' && /^https?:\/\//i.test(link);
+              const looksPath = typeof link === 'string' && link.startsWith('/');
+              // If link is missing or not a path/http, default to /products/:slug
+              if (!looksHttp && !looksPath) next.learn_more_link = `/products/${next.slug}`;
+              // Normalize to ensure leading slash
+              if (next.learn_more_link) next.learn_more_link = normalizeHref(next.learn_more_link);
+              return next;
+            });
+          }
+          return page;
+        }
+        return value;
+      } catch (error) {
+        // Fallback to mock data on any API error
         const fallback = (mockContentstackData as any)[contentType];
         if (import.meta.env.DEV) {
           // eslint-disable-next-line no-console
-          console.warn('[TC360] No entries for', contentType, '— using mock fallback');
+          console.warn('[TC360] Contentstack API error for', contentType, '— using mock fallback', error);
+        }
+        if (!fallback) {
+          throw new Error(`No mock data available for ${contentType}`);
         }
         return fallback;
       }
-      // Normalize field differences per content type
-      if (contentType === 'products_page') {
-        const page: any = { ...value };
-        // Some stacks store the title under `title` instead of `header_title`
-        if (!page.header_title && page.title) page.header_title = page.title;
-        if (page.cta_section) {
-          if (page.cta_section.primary_cta_link) page.cta_section.primary_cta_link = normalizeHref(page.cta_section.primary_cta_link);
-          if (page.cta_section.secondary_cta_link) page.cta_section.secondary_cta_link = normalizeHref(page.cta_section.secondary_cta_link);
-        }
-        if (Array.isArray(page.products)) {
-          page.products = page.products.map((p: any) => {
-            const next = { ...p };
-            const link: string | undefined = next.learn_more_link;
-            const looksHttp = typeof link === 'string' && /^https?:\/\//i.test(link);
-            const looksPath = typeof link === 'string' && link.startsWith('/');
-            // If link is missing or not a path/http, default to /products/:slug
-            if (!looksHttp && !looksPath) next.learn_more_link = `/products/${next.slug}`;
-            // Normalize to ensure leading slash
-            if (next.learn_more_link) next.learn_more_link = normalizeHref(next.learn_more_link);
-            return next;
-          });
-        }
-        return page;
-      }
-      return value;
     }
     case 'careers_page': {
-      const result = await Stack.ContentType('careers_page').Query().toJSON().find();
-      const unwrapped = unwrap(result);
-      return Array.isArray(unwrapped) ? unwrapped[0] : unwrapped;
+      try {
+        const result = await Stack.ContentType('careers_page').Query().toJSON().find();
+        const unwrapped = unwrap(result);
+        const value = Array.isArray(unwrapped) ? unwrapped[0] : unwrapped;
+        if (!value) {
+          throw new Error('No data returned from Contentstack');
+        }
+        return value;
+      } catch (error) {
+        // Fallback to mock data on any API error
+        const fallback = mockContentstackData.careers_page;
+        if (import.meta.env.DEV) {
+          // eslint-disable-next-line no-console
+          console.warn('[TC360] Contentstack API error for careers_page — using mock fallback', error);
+        }
+        if (!fallback) {
+          throw new Error('No mock data available for careers_page');
+        }
+        return fallback;
+      }
     }
     case 'job_detail': {
-      const query = Stack.ContentType('job_detail').Query();
-      if ((filters as any)?.slug) query.where('slug', (filters as any).slug);
-      const result = await query.toJSON().find();
-      const unwrapped = unwrap(result);
-      return Array.isArray(unwrapped) ? unwrapped[0] : unwrapped;
+      try {
+        const query = Stack.ContentType('job_detail').Query();
+        if ((filters as any)?.slug) query.where('slug', (filters as any).slug);
+        const result = await query.toJSON().find();
+        const unwrapped = unwrap(result);
+        const value = Array.isArray(unwrapped) ? unwrapped[0] : unwrapped;
+        if (!value) {
+          throw new Error('No data returned from Contentstack');
+        }
+        return value;
+      } catch (error) {
+        // Fallback to mock data on any API error
+        const fallback = (mockContentstackData.job_details || []).find((j: any) => j.slug === (filters as any)?.slug);
+        if (import.meta.env.DEV) {
+          // eslint-disable-next-line no-console
+          console.warn('[TC360] Contentstack API error for job_detail — using mock fallback', error);
+        }
+        if (!fallback) {
+          throw new Error(`No mock data available for job_detail with slug: ${(filters as any)?.slug}`);
+        }
+        return fallback;
+      }
+    }
+    case 'product_detail': {
+      try {
+        const query = Stack.ContentType('product_detail').Query();
+        if ((filters as any)?.slug) query.where('slug', (filters as any).slug);
+        const result = await query.toJSON().find();
+        const unwrapped = unwrap(result);
+        const value = Array.isArray(unwrapped) ? unwrapped[0] : unwrapped;
+        if (!value) {
+          throw new Error('No data returned from Contentstack');
+        }
+        return value;
+      } catch (error) {
+        // Fallback to mock data on any API error
+        const fallback = (mockContentstackData.product_details || []).find((p: any) => p.slug === (filters as any)?.slug);
+        if (import.meta.env.DEV) {
+          // eslint-disable-next-line no-console
+          console.warn('[TC360] Contentstack API error for product_detail — using mock fallback', error);
+        }
+        if (!fallback) {
+          throw new Error(`No mock data available for product_detail with slug: ${(filters as any)?.slug}`);
+        }
+        return fallback;
+      }
     }
     default: {
       if ((filters as any)?.slug) {

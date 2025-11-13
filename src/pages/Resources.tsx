@@ -7,11 +7,11 @@ const Resources = () => {
   const { data } = useQuery({ queryKey: ["resources_page"], queryFn: () => fetchContentstackData("resources_page") });
   return (
     <div className="min-h-screen bg-background">
-      <Seo title={(data?.header_title || 'Resources') + ' — TalentConnect360'} description={data?.header_subtitle} />
+      <Seo title={(data?.header_title || 'Resources') + ' — DevOpsCopilot'} description={data?.header_subtitle} />
       <div className="container py-20 space-y-12">
         <div className="text-center">
           <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-4">{data?.header_title || 'Resources'}</h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">{data?.header_subtitle || 'Guides, reports, and customer stories to help you get the most from TalentConnect360.'}</p>
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">{data?.header_subtitle || 'Guides, reports, and customer stories to help you get the most from DevOpsCopilot.'}</p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-6">

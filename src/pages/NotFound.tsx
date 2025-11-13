@@ -31,9 +31,18 @@ const NotFound = () => {
         <div className="text-sm text-muted-foreground">Quick links:</div>
         <div className="flex flex-wrap gap-2 justify-center text-sm">
           <a href="/products" className="px-3 py-1 rounded-md border border-border hover:bg-accent/10">Products</a>
-          <a href="/industries" className="px-3 py-1 rounded-md border border-border hover:bg-accent/10">Industries</a>
+          <a href="/playbooks" className="px-3 py-1 rounded-md border border-border hover:bg-accent/10">DevOps Solutions</a>
           <a href="/pricing" className="px-3 py-1 rounded-md border border-border hover:bg-accent/10">Pricing</a>
-          <a href="/demo" className="px-3 py-1 rounded-md border border-border hover:bg-accent/10">Schedule Demo</a>
+          <button 
+            onClick={(e) => {
+              e.preventDefault();
+              const ev = new CustomEvent('tc360:demo-chat', { detail: { open: true } });
+              window.dispatchEvent(ev);
+            }}
+            className="px-3 py-1 rounded-md border border-border hover:bg-accent/10"
+          >
+            Schedule Demo
+          </button>
         </div>
       </div>
     </div>

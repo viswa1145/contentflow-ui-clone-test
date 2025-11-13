@@ -2,12 +2,39 @@ import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { fetchContentstackData } from "@/data/contentstack";
 import Seo from "@/components/Seo";
+import { Loader2 } from "lucide-react";
 
 const ProductDetail = () => {
   const { slug } = useParams();
-  const { data } = useQuery({ queryKey: ["product_detail", slug], queryFn: () => fetchContentstackData('product_detail', { slug }) });
+  const { data, isLoading, error } = useQuery({ 
+    queryKey: ["product_detail", slug], 
+    queryFn: async () => {
+      try {
+        const result = await fetchContentstackData('product_detail', { slug });
+        console.log("Product detail data:", result);
+        if (!result) {
+          throw new Error("Product not found");
+        }
+        return result;
+      } catch (err) {
+        console.error("Error fetching product detail:", err);
+        throw err;
+      }
+    }
+  });
 
-  if (!data) {
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center space-y-4">
+          <Loader2 className="h-8 w-8 animate-spin mx-auto text-primary" />
+          <p className="text-muted-foreground">Loading product details...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !data) {
     return (
       <div className="min-h-screen bg-background">
         <div className="container py-20">
@@ -21,7 +48,7 @@ const ProductDetail = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Seo title={`${data.title} — TalentConnect360`} description={data.overview} />
+      <Seo title={`${data.title} — DevOpsCopilot`} description={data.overview} />
       <div className="container py-16 space-y-10">
         <div>
           <h1 className="text-4xl font-bold text-foreground mb-3">{data.title}</h1>
@@ -46,7 +73,16 @@ const ProductDetail = () => {
             </ul>
             <div className="mt-6 space-y-2">
               <a href="/pricing" className="block px-4 py-2 rounded-md border border-border hover:bg-accent/10">See pricing</a>
-              <a href="/demo" className="block px-4 py-2 rounded-md border border-border hover:bg-accent/10">Schedule a demo</a>
+              <button 
+                onClick={(e) => {
+                  e.preventDefault();
+                  const ev = new CustomEvent('tc360:demo-chat', { detail: { open: true } });
+                  window.dispatchEvent(ev);
+                }}
+                className="w-full text-left px-4 py-2 rounded-md border border-border hover:bg-accent/10"
+              >
+                Schedule a demo
+              </button>
             </div>
           </div>
         </div>

@@ -148,15 +148,22 @@ const CaseStudy = () => {
             <div className="rounded-2xl border border-border p-6 bg-gradient-hero text-white">
               <h4 className="font-semibold mb-2">See it in action</h4>
               <p className="text-white/90 text-sm mb-4">Book a personalized demo tailored to your industry and role.</p>
-              <a href={`/demo?industrytype=${cs.industry}&role=${cs.role}`} className="inline-flex items-center gap-2 font-medium">
+              <button 
+                onClick={(e) => {
+                  e.preventDefault();
+                  const ev = new CustomEvent('tc360:demo-chat', { detail: { open: true } });
+                  window.dispatchEvent(ev);
+                }}
+                className="inline-flex items-center gap-2 font-medium hover:opacity-80 transition-opacity"
+              >
                 Schedule a Demo <ArrowRight className="h-4 w-4" />
-              </a>
+              </button>
             </div>
 
             <div className="rounded-2xl border border-border p-6">
               <h4 className="font-semibold mb-2">More case studies</h4>
-              <Link to="/industries" className="text-primary text-sm inline-flex items-center gap-2">
-                Browse by industry <ArrowRight className="h-4 w-4" />
+              <Link to="/playbooks" className="text-primary text-sm inline-flex items-center gap-2">
+                Browse DevOps Solutions <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
           </aside>
